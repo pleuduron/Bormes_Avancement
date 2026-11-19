@@ -19,7 +19,7 @@ h1{font-size:27px;margin:0 0 7px}h2{font-size:17px;margin:0 0 18px}.sub,.muted{c
 .legend{display:flex;gap:20px;justify-content:center;font-size:13px}.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:#e77932}.dot.darkdot{background:#35434e}
 .details{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:15px}.details div{padding:14px;background:#f6f8fa;border-radius:10px}
 .details strong{display:block;margin-top:7px;font-size:18px}
-canvas{width:100%;height:230px;display:block}footer{font-size:12px;color:#788692;margin-top:22px}
+footer{font-size:12px;color:#788692;margin-top:22px}
 @media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}}
 @media(max-width:520px){.wrap{padding:20px 12px}.grid{grid-template-columns:1fr 1fr;gap:8px}.card{padding:14px}.big{font-size:23px}header{display:block}.tag{display:inline-block;margin-top:12px}.details{grid-template-columns:1fr}}
 @media print{body{background:white}.wrap{padding:8px}.card{box-shadow:none}footer{display:none}}
@@ -35,10 +35,10 @@ canvas{width:100%;height:230px;display:block}footer{font-size:12px;color:#788692
 <div class="card"><h2>Avancement du linéaire</h2><div class="donut" id="arcDonut"><div class="center"><b id="arcPct"></b><small>Réalisé</small></div></div><div class="legend"><span><i class="dot"></i>Réalisé</span><span><i class="dot darkdot"></i>Restant</span></div><div class="details"><div>Réalisé<strong id="am2"></strong></div><div>Restant<strong id="rm2"></strong></div><div>Arcs réalisés<strong id="an"></strong></div></div></div>
 <div class="card"><h2>Avancement des plaques</h2><div class="donut" id="nodeDonut"><div class="center"><b id="nodePct"></b><small>Réalisé</small></div></div><div class="legend"><span><i class="dot"></i>Réalisé</span><span><i class="dot darkdot"></i>Restant</span></div><div class="details"><div>Réalisées<strong id="pn2"></strong></div><div>Restantes<strong id="pr2"></strong></div><div>Total<strong id="pt"></strong></div></div></div>
 </section>
-<section class="card"><h2>Historique du linéaire réalisé</h2><canvas id="trend" role="img" aria-label="Évolution du linéaire réalisé"></canvas><div class="muted" id="histinfo"></div></section>
+
 <footer>Rapport généré depuis QGIS · Données intégrées au fichier HTML · Les données source QGIS ne sont pas modifiées. Les zones OBS et les éléments hors calcul sont exclus des indicateurs.</footer>
 </main><script>
-const d={"date": "19/11/2026 11:40:22", "productivite": 1384.0, "arcs": {"faits_n": 2537, "faits_m": 48000.416168115145, "reste_n": 234, "reste_m": 2306.8844944679154, "jours": 1.6668240566964707, "pct": 0.9541441408287744}, "noeuds": {"faits": 1800, "reste": 219, "pct": 0.8915304606240714}, "exclusions": {"metres": 20269.46310775044, "points0": 362, "points1": 0}, "refoulement": "Exclus", "historique": [{"fecha": "19/11/2026 11:40:22", "arcs": 48000.4161681151, "restantes": 2306.88449446792, "noeuds": 1800.0, "noeuds_restantes": 219.0}]};
+const d={"date": "19/11/2026 11:48:09", "productivite": 1384.0, "arcs": {"faits_n": 2537, "faits_m": 48000.416168115145, "reste_n": 234, "reste_m": 2306.8844944679154, "jours": 1.6668240566964707, "pct": 0.9541441408287744}, "noeuds": {"faits": 1800, "reste": 219, "pct": 0.8915304606240714}, "exclusions": {"metres": 20269.46310775044, "points0": 362, "points1": 0}, "refoulement": "Exclus", "historique": [{"fecha": "19/11/2026 11:40:22", "arcs": 48000.4161681151, "restantes": 2306.88449446792, "noeuds": 1800.0, "noeuds_restantes": 219.0}, {"fecha": "19/11/2026 11:48:09", "arcs": 48000.4161681151, "restantes": 2306.88449446792, "noeuds": 1800.0, "noeuds_restantes": 219.0}]};
 const fmt=(v,dec=0)=>Number(v).toLocaleString('fr-FR',{minimumFractionDigits:dec,maximumFractionDigits:dec});
 const set=(id,t)=>document.getElementById(id).textContent=t;
 const pct=x=>Math.max(0,Math.min(100,100*Number(x||0)));
@@ -51,17 +51,5 @@ for(const [name,val] of [['arc',d.arcs.pct],['node',d.noeuds.pct]]){
  set(name+'Pct',fmt(v,1)+'%');
 }
 document.getElementById('apbar').style.width=pct(d.arcs.pct)+'%';document.getElementById('npbar').style.width=pct(d.noeuds.pct)+'%';
-const c=document.getElementById('trend'),ctx=c.getContext('2d');
-function draw(){const w=c.clientWidth,h=230,ratio=window.devicePixelRatio||1;c.width=w*ratio;c.height=h*ratio;ctx.setTransform(ratio,0,0,ratio,0,0);
- const rows=d.historique.filter(x=>Number.isFinite(x.arcs)),values=rows.map(x=>x.arcs),max=Math.max(1,...values)*1.12;
- const L=54,R=15,T=18,B=42,iw=w-L-R,ih=h-T-B;
- ctx.font='12px Segoe UI, Arial';ctx.strokeStyle='#e8edf0';ctx.fillStyle='#72808b';ctx.lineWidth=1;
- for(let i=0;i<=4;i++){let y=T+ih*(1-i/4);ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(w-R,y);ctx.stroke();ctx.fillText(fmt(max*i/4),4,y+4)}
- if(!rows.length)return;
- const X=i=>L+(rows.length===1?iw/2:i*iw/(rows.length-1)),Y=v=>T+ih*(1-v/max);
- ctx.beginPath();rows.forEach((r,i)=>i?ctx.lineTo(X(i),Y(r.arcs)):ctx.moveTo(X(i),Y(r.arcs)));ctx.strokeStyle='#e77932';ctx.lineWidth=3;ctx.stroke();
- rows.forEach((r,i)=>{ctx.beginPath();ctx.arc(X(i),Y(r.arcs),3.5,0,Math.PI*2);ctx.fillStyle='#e77932';ctx.fill()});
- const indexes=[0,Math.floor((rows.length-1)/2),rows.length-1];ctx.fillStyle='#72808b';indexes.filter((i,k)=>indexes.indexOf(i)===k).forEach(i=>{const label=String(rows[i].fecha).slice(0,10);ctx.fillText(label,Math.max(L,Math.min(w-90,X(i)-32)),h-12)})
-}
-window.addEventListener('resize',draw);draw();set('histinfo',d.historique.length+' relevé(s) dans l’historique');
+
 </script></body></html>
