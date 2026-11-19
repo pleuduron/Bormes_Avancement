@@ -1,9 +1,67 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex"><title>Avancement Bormes-les-Mimosas</title>
-<style>body{margin:0;background:#f7f8fa;color:#233042;font:16px system-ui,sans-serif;display:grid;place-items:center;min-height:100vh}main{max-width:680px;margin:1.5rem;background:white;border:1px solid #e5e7eb;border-radius:14px;padding:2.4rem}h1{font-size:1.65rem}p{line-height:1.6}.pill{display:inline-block;background:#fff3e7;color:#945321;padding:.4rem .8rem;border-radius:30px}</style>
-</head><body><main><span class="pill">En attente de publication</span>
-<h1>Avancement — Bormes-les-Mimosas</h1>
-<p>Le tableau de bord sera affiché ici après sa première mise à jour depuis QGIS.</p>
-<p>Aucune donnée du projet n’a encore été publiée.</p>
-</main></body></html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Avancement Bormes-les-Mimosas</title>
+<style>
+:root{font-family:Segoe UI,Arial,sans-serif;color:#26333d;background:#f5f7f9}*{box-sizing:border-box}
+body{margin:0}.wrap{max-width:1100px;margin:auto;padding:32px 22px 60px}
+header{display:flex;justify-content:space-between;align-items:start;gap:20px;margin-bottom:26px}
+h1{font-size:27px;margin:0 0 7px}h2{font-size:17px;margin:0 0 18px}.sub,.muted{color:#71808d}
+.tag{background:#fff;border:1px solid #e2e6ea;padding:9px 13px;border-radius:12px;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}
+.card{background:#fff;border:1px solid #e5e9ed;border-radius:15px;padding:20px;box-shadow:0 3px 12px #20304008}
+.label{font-size:13px;color:#6a7783;margin-bottom:11px}.big{font-size:29px;font-weight:750;letter-spacing:-.7px}
+.orange{color:#e77932}.dark{color:#2d3944}.progress{height:9px;background:#e6e9ec;border-radius:12px;overflow:hidden;margin-top:14px}
+.progress>span{display:block;height:100%;background:#e77932;border-radius:12px}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.donut{width:180px;height:180px;border-radius:50%;margin:12px auto;display:grid;place-items:center;position:relative}
+.donut:after{content:'';position:absolute;width:125px;height:125px;border-radius:50%;background:white}
+.center{position:relative;z-index:1;text-align:center}.center b{font-size:25px;display:block}
+.legend{display:flex;gap:20px;justify-content:center;font-size:13px}.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:#e77932}.dot.darkdot{background:#35434e}
+.details{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:15px}.details div{padding:14px;background:#f6f8fa;border-radius:10px}
+.details strong{display:block;margin-top:7px;font-size:18px}
+canvas{width:100%;height:230px;display:block}footer{font-size:12px;color:#788692;margin-top:22px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}}
+@media(max-width:520px){.wrap{padding:20px 12px}.grid{grid-template-columns:1fr 1fr;gap:8px}.card{padding:14px}.big{font-size:23px}header{display:block}.tag{display:inline-block;margin-top:12px}.details{grid-template-columns:1fr}}
+@media print{body{background:white}.wrap{padding:8px}.card{box-shadow:none}footer{display:none}}
+</style></head><body><main class="wrap">
+<header><div><h1>AVANCEMENT BORMES-LES-MIMOSAS</h1><div class="sub">Tableau de bord · Réseau d'assainissement</div></div><div class="tag">Mise à jour : <b id="date"></b></div></header>
+<section class="grid">
+<div class="card"><div class="label">Linéaire réalisé</div><div class="big orange" id="am"></div><div class="progress"><span id="apbar"></span></div></div>
+<div class="card"><div class="label">Linéaire restant</div><div class="big dark" id="rm"></div><div class="muted" id="jours"></div></div>
+<div class="card"><div class="label">Plaques réalisées</div><div class="big orange" id="pn"></div><div class="progress"><span id="npbar"></span></div></div>
+<div class="card"><div class="label">Plaques restantes</div><div class="big dark" id="pr"></div><div class="muted" id="statut"></div></div>
+</section>
+<section class="charts">
+<div class="card"><h2>Avancement du linéaire</h2><div class="donut" id="arcDonut"><div class="center"><b id="arcPct"></b><small>Réalisé</small></div></div><div class="legend"><span><i class="dot"></i>Réalisé</span><span><i class="dot darkdot"></i>Restant</span></div><div class="details"><div>Réalisé<strong id="am2"></strong></div><div>Restant<strong id="rm2"></strong></div><div>Arcs réalisés<strong id="an"></strong></div></div></div>
+<div class="card"><h2>Avancement des plaques</h2><div class="donut" id="nodeDonut"><div class="center"><b id="nodePct"></b><small>Réalisé</small></div></div><div class="legend"><span><i class="dot"></i>Réalisé</span><span><i class="dot darkdot"></i>Restant</span></div><div class="details"><div>Réalisées<strong id="pn2"></strong></div><div>Restantes<strong id="pr2"></strong></div><div>Total<strong id="pt"></strong></div></div></div>
+</section>
+<section class="card"><h2>Historique du linéaire réalisé</h2><canvas id="trend" role="img" aria-label="Évolution du linéaire réalisé"></canvas><div class="muted" id="histinfo"></div></section>
+<footer>Rapport généré depuis QGIS · Données intégrées au fichier HTML · Les données source QGIS ne sont pas modifiées. Les zones OBS et les éléments hors calcul sont exclus des indicateurs.</footer>
+</main><script>
+const d={"date": "19/11/2026 11:40:22", "productivite": 1384.0, "arcs": {"faits_n": 2537, "faits_m": 48000.416168115145, "reste_n": 234, "reste_m": 2306.8844944679154, "jours": 1.6668240566964707, "pct": 0.9541441408287744}, "noeuds": {"faits": 1800, "reste": 219, "pct": 0.8915304606240714}, "exclusions": {"metres": 20269.46310775044, "points0": 362, "points1": 0}, "refoulement": "Exclus", "historique": [{"fecha": "19/11/2026 11:40:22", "arcs": 48000.4161681151, "restantes": 2306.88449446792, "noeuds": 1800.0, "noeuds_restantes": 219.0}]};
+const fmt=(v,dec=0)=>Number(v).toLocaleString('fr-FR',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+const set=(id,t)=>document.getElementById(id).textContent=t;
+const pct=x=>Math.max(0,Math.min(100,100*Number(x||0)));
+set('date',d.date);set('am',fmt(d.arcs.faits_m,1)+' mL');set('rm',fmt(d.arcs.reste_m,1)+' mL');
+set('pn',fmt(d.noeuds.faits));set('pr',fmt(d.noeuds.reste));set('jours',fmt(d.arcs.jours,1)+' jours estimés');
+set('statut','Refoulement : '+d.refoulement);set('am2',fmt(d.arcs.faits_m,1)+' m');set('rm2',fmt(d.arcs.reste_m,1)+' m');
+set('an',fmt(d.arcs.faits_n));set('pn2',fmt(d.noeuds.faits));set('pr2',fmt(d.noeuds.reste));set('pt',fmt(d.noeuds.faits+d.noeuds.reste));
+for(const [name,val] of [['arc',d.arcs.pct],['node',d.noeuds.pct]]){
+ const v=pct(val);document.getElementById(name+'Donut').style.background=`conic-gradient(#e77932 0% ${v}%,#35434e ${v}% 100%)`;
+ set(name+'Pct',fmt(v,1)+'%');
+}
+document.getElementById('apbar').style.width=pct(d.arcs.pct)+'%';document.getElementById('npbar').style.width=pct(d.noeuds.pct)+'%';
+const c=document.getElementById('trend'),ctx=c.getContext('2d');
+function draw(){const w=c.clientWidth,h=230,ratio=window.devicePixelRatio||1;c.width=w*ratio;c.height=h*ratio;ctx.setTransform(ratio,0,0,ratio,0,0);
+ const rows=d.historique.filter(x=>Number.isFinite(x.arcs)),values=rows.map(x=>x.arcs),max=Math.max(1,...values)*1.12;
+ const L=54,R=15,T=18,B=42,iw=w-L-R,ih=h-T-B;
+ ctx.font='12px Segoe UI, Arial';ctx.strokeStyle='#e8edf0';ctx.fillStyle='#72808b';ctx.lineWidth=1;
+ for(let i=0;i<=4;i++){let y=T+ih*(1-i/4);ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(w-R,y);ctx.stroke();ctx.fillText(fmt(max*i/4),4,y+4)}
+ if(!rows.length)return;
+ const X=i=>L+(rows.length===1?iw/2:i*iw/(rows.length-1)),Y=v=>T+ih*(1-v/max);
+ ctx.beginPath();rows.forEach((r,i)=>i?ctx.lineTo(X(i),Y(r.arcs)):ctx.moveTo(X(i),Y(r.arcs)));ctx.strokeStyle='#e77932';ctx.lineWidth=3;ctx.stroke();
+ rows.forEach((r,i)=>{ctx.beginPath();ctx.arc(X(i),Y(r.arcs),3.5,0,Math.PI*2);ctx.fillStyle='#e77932';ctx.fill()});
+ const indexes=[0,Math.floor((rows.length-1)/2),rows.length-1];ctx.fillStyle='#72808b';indexes.filter((i,k)=>indexes.indexOf(i)===k).forEach(i=>{const label=String(rows[i].fecha).slice(0,10);ctx.fillText(label,Math.max(L,Math.min(w-90,X(i)-32)),h-12)})
+}
+window.addEventListener('resize',draw);draw();set('histinfo',d.historique.length+' relevé(s) dans l’historique');
+</script></body></html>
