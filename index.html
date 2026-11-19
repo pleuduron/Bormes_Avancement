@@ -1,55 +1,184 @@
-<!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Avancement Bormes-les-Mimosas</title>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#143d2d"><meta name="robots" content="noindex">
+<title>Bormes-les-Mimosas | Tableau de bord</title>
 <style>
-:root{font-family:Segoe UI,Arial,sans-serif;color:#26333d;background:#f5f7f9}*{box-sizing:border-box}
-body{margin:0}.wrap{max-width:1100px;margin:auto;padding:32px 22px 60px}
-header{display:flex;justify-content:space-between;align-items:start;gap:20px;margin-bottom:26px}
-h1{font-size:27px;margin:0 0 7px}h2{font-size:17px;margin:0 0 18px}.sub,.muted{color:#71808d}
-.tag{background:#fff;border:1px solid #e2e6ea;padding:9px 13px;border-radius:12px;font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}
-.card{background:#fff;border:1px solid #e5e9ed;border-radius:15px;padding:20px;box-shadow:0 3px 12px #20304008}
-.label{font-size:13px;color:#6a7783;margin-bottom:11px}.big{font-size:29px;font-weight:750;letter-spacing:-.7px}
-.orange{color:#e77932}.dark{color:#2d3944}.progress{height:9px;background:#e6e9ec;border-radius:12px;overflow:hidden;margin-top:14px}
-.progress>span{display:block;height:100%;background:#e77932;border-radius:12px}
-.charts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
-.donut{width:180px;height:180px;border-radius:50%;margin:12px auto;display:grid;place-items:center;position:relative}
-.donut:after{content:'';position:absolute;width:125px;height:125px;border-radius:50%;background:white}
-.center{position:relative;z-index:1;text-align:center}.center b{font-size:25px;display:block}
-.legend{display:flex;gap:20px;justify-content:center;font-size:13px}.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:#e77932}.dot.darkdot{background:#35434e}
-.details{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:15px}.details div{padding:14px;background:#f6f8fa;border-radius:10px}
-.details strong{display:block;margin-top:7px;font-size:18px}
-footer{font-size:12px;color:#788692;margin-top:22px}
-@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}}
-@media(max-width:520px){.wrap{padding:20px 12px}.grid{grid-template-columns:1fr 1fr;gap:8px}.card{padding:14px}.big{font-size:23px}header{display:block}.tag{display:inline-block;margin-top:12px}.details{grid-template-columns:1fr}}
-@media print{body{background:white}.wrap{padding:8px}.card{box-shadow:none}footer{display:none}}
-</style></head><body><main class="wrap">
-<header><div><h1>AVANCEMENT BORMES-LES-MIMOSAS</h1><div class="sub">Tableau de bord · Réseau d'assainissement</div></div><div class="tag">Mise à jour : <b id="date"></b></div></header>
-<section class="grid">
-<div class="card"><div class="label">Linéaire réalisé</div><div class="big orange" id="am"></div><div class="progress"><span id="apbar"></span></div></div>
-<div class="card"><div class="label">Linéaire restant</div><div class="big dark" id="rm"></div><div class="muted" id="jours"></div></div>
-<div class="card"><div class="label">Plaques réalisées</div><div class="big orange" id="pn"></div><div class="progress"><span id="npbar"></span></div></div>
-<div class="card"><div class="label">Plaques restantes</div><div class="big dark" id="pr"></div><div class="muted" id="statut"></div></div>
-</section>
-<section class="charts">
-<div class="card"><h2>Avancement du linéaire</h2><div class="donut" id="arcDonut"><div class="center"><b id="arcPct"></b><small>Réalisé</small></div></div><div class="legend"><span><i class="dot"></i>Réalisé</span><span><i class="dot darkdot"></i>Restant</span></div><div class="details"><div>Réalisé<strong id="am2"></strong></div><div>Restant<strong id="rm2"></strong></div><div>Arcs réalisés<strong id="an"></strong></div></div></div>
-<div class="card"><h2>Avancement des plaques</h2><div class="donut" id="nodeDonut"><div class="center"><b id="nodePct"></b><small>Réalisé</small></div></div><div class="legend"><span><i class="dot"></i>Réalisé</span><span><i class="dot darkdot"></i>Restant</span></div><div class="details"><div>Réalisées<strong id="pn2"></strong></div><div>Restantes<strong id="pr2"></strong></div><div>Total<strong id="pt"></strong></div></div></div>
-</section>
-
-<footer>Rapport généré depuis QGIS · Données intégrées au fichier HTML · Les données source QGIS ne sont pas modifiées. Les zones OBS et les éléments hors calcul sont exclus des indicateurs.</footer>
-</main><script>
-const d={"date": "19/11/2026 11:48:09", "productivite": 1384.0, "arcs": {"faits_n": 2537, "faits_m": 48000.416168115145, "reste_n": 234, "reste_m": 2306.8844944679154, "jours": 1.6668240566964707, "pct": 0.9541441408287744}, "noeuds": {"faits": 1800, "reste": 219, "pct": 0.8915304606240714}, "exclusions": {"metres": 20269.46310775044, "points0": 362, "points1": 0}, "refoulement": "Exclus", "historique": [{"fecha": "19/11/2026 11:40:22", "arcs": 48000.4161681151, "restantes": 2306.88449446792, "noeuds": 1800.0, "noeuds_restantes": 219.0}, {"fecha": "19/11/2026 11:48:09", "arcs": 48000.4161681151, "restantes": 2306.88449446792, "noeuds": 1800.0, "noeuds_restantes": 219.0}]};
-const fmt=(v,dec=0)=>Number(v).toLocaleString('fr-FR',{minimumFractionDigits:dec,maximumFractionDigits:dec});
-const set=(id,t)=>document.getElementById(id).textContent=t;
-const pct=x=>Math.max(0,Math.min(100,100*Number(x||0)));
-set('date',d.date);set('am',fmt(d.arcs.faits_m,1)+' mL');set('rm',fmt(d.arcs.reste_m,1)+' mL');
-set('pn',fmt(d.noeuds.faits));set('pr',fmt(d.noeuds.reste));set('jours',fmt(d.arcs.jours,1)+' jours estimés');
-set('statut','Refoulement : '+d.refoulement);set('am2',fmt(d.arcs.faits_m,1)+' m');set('rm2',fmt(d.arcs.reste_m,1)+' m');
-set('an',fmt(d.arcs.faits_n));set('pn2',fmt(d.noeuds.faits));set('pr2',fmt(d.noeuds.reste));set('pt',fmt(d.noeuds.faits+d.noeuds.reste));
-for(const [name,val] of [['arc',d.arcs.pct],['node',d.noeuds.pct]]){
- const v=pct(val);document.getElementById(name+'Donut').style.background=`conic-gradient(#e77932 0% ${v}%,#35434e ${v}% 100%)`;
- set(name+'Pct',fmt(v,1)+'%');
+:root{--forest:#143d2d;--forest2:#20563f;--green:#287a53;--green2:#42a271;--pale:#ebf5ee;--pale2:#f4f8f5;--text:#1d3327;--muted:#6a7f72;--border:#dfe9e1;--white:#fff;--grey:#a5b8ac;--shadow:0 9px 35px rgba(19,66,38,.045)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--pale2);font-family:Inter,'Segoe UI',Arial,sans-serif;font-size:14px;color:var(--text);line-height:1.5}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #8bc8a3;outline-offset:2px}a{color:var(--green)}[hidden]{display:none!important}
+.wrap{width:min(1280px,calc(100% - 48px));margin-inline:auto}.demo-banner{padding:9px 16px;text-align:center;background:#fff6e2;border-bottom:1px solid #ecdab3;color:#735422;font-size:12px}.masthead{background:var(--forest);color:white}.header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:27px 0 22px}.eyebrow{color:#b5dac1;text-transform:uppercase;letter-spacing:.17em;font-size:10px;font-weight:800;margin:0 0 8px}.site-title{font-size:clamp(25px,3vw,38px);margin:0;font-weight:720;letter-spacing:-.048em;line-height:1.13}.site-sub{margin:8px 0 0;color:#bfd3c6;font-size:13px}.head-status{display:flex;align-items:center;gap:9px;border:1px solid #628572;padding:9px 13px;border-radius:40px;color:#dbeae1;font-size:12px;white-space:nowrap}.dot{width:7px;height:7px;border-radius:50%;background:#8dd0a3;display:inline-block}.tab-nav{display:flex;gap:7px;overflow-x:auto;border-top:1px solid rgba(255,255,255,.13);scrollbar-width:thin}.tab-nav button{white-space:nowrap;background:transparent;border:0;border-bottom:3px solid transparent;padding:17px 18px 14px;color:#bbd2c3;font-weight:600;font-size:13px}.tab-nav button:hover{color:white}.tab-nav button[aria-selected=true]{color:white;border-bottom-color:#a6dbb8;background:rgba(255,255,255,.06)}
+main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{from{opacity:.6}to{opacity:1}}.pane-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:0 0 19px}.section-kicker{margin:0 0 4px;font-size:10px;font-weight:750;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}h2{font-size:clamp(21px,2.3vw,28px);letter-spacing:-.035em;margin:0;color:var(--forest)}.section-desc{color:var(--muted);margin:5px 0 0;font-size:13px}.date-stamp{font-size:11px;color:var(--muted);background:var(--white);border:1px solid var(--border);border-radius:30px;padding:8px 11px;white-space:nowrap}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.card{background:var(--white);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:15px;padding:21px;min-width:0}.card.soft{background:#f1f7f2}.stat{min-height:129px;position:relative;overflow:hidden}.stat:before{content:"";position:absolute;top:19px;bottom:19px;left:0;width:3px;background:#c6d9cb}.stat.strong:before{background:var(--green)}.stat-label{font-size:12px;color:var(--muted);font-weight:620}.stat-number{font-size:clamp(23px,2.4vw,31px);letter-spacing:-.05em;font-variant-numeric:tabular-nums;font-weight:740;color:var(--forest);margin-top:17px;line-height:1.1}.stat-detail{font-size:11px;color:var(--muted);margin:9px 0 0}.gap-top{margin-top:15px}.card-head{display:flex;justify-content:space-between;gap:12px;align-items:start;margin-bottom:18px}.card h3{font-size:16px;color:var(--forest);letter-spacing:-.02em;margin:0}.card-caption{margin:5px 0 0;color:var(--muted);font-size:12px}.tag{display:inline-block;color:var(--green);background:var(--pale);border-radius:30px;padding:5px 9px;font-size:11px;font-weight:700}.ring-layout{display:flex;gap:27px;align-items:center;justify-content:space-between}.ring{--value:0%;background:conic-gradient(var(--green) 0 var(--value),#e4eee7 var(--value) 100%);width:162px;height:162px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto}.ring-inner{width:124px;height:124px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column}.ring-inner b{font-size:26px;letter-spacing:-.055em;color:var(--forest)}.ring-inner small{color:var(--muted);font-size:11px}.ring-lines{min-width:0;flex:1}.line-item{border-bottom:1px solid var(--border);padding:10px 0;display:flex;justify-content:space-between;gap:13px;font-size:12px}.line-item:last-child{border-bottom:0}.line-item span{color:var(--muted)}.line-item strong{white-space:nowrap;color:var(--forest);font-variant-numeric:tabular-nums}.hint{font-size:12px;color:#476b55;background:#edf5ef;border:1px solid #d4e8da;border-radius:11px;padding:12px 16px;margin-top:14px}.hint.warn{background:#fbf6e9;border-color:#eee2c7;color:#806a3b}.overview-grid{margin-top:14px;display:grid;grid-template-columns:1.2fr .8fr;gap:13px}.overview-progress{display:flex;flex-direction:column;gap:19px;margin-top:18px}.progress-row{display:flex;justify-content:space-between;gap:10px;font-size:12px}.progress-row b{color:var(--forest)}.progress-rail{height:11px;background:#edf2ed;border-radius:30px;overflow:hidden;margin-top:7px}.progress-fill{height:100%;background:var(--green);width:0;transition:width .3s}.quick-links{display:flex;gap:9px;margin-top:20px;flex-wrap:wrap}.quiet-btn{border:1px solid #bed4c5;color:var(--forest);background:white;border-radius:8px;padding:9px 12px;font-size:12px;font-weight:650}.quiet-btn:hover{background:var(--pale)}
+.filter-card{padding:20px 22px}.filter-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.filter-form{display:flex;align-items:end;gap:12px;flex-wrap:wrap}.filter-form .field{flex:1 1 240px;max-width:320px}.filter-form .button-primary{flex:0 0 auto}.filter-help{margin:10px 0 0;color:var(--muted);font-size:11px}.field label{display:block;color:var(--muted);font-size:11px;font-weight:730;margin-bottom:6px}.field input,.field select{width:100%;background:white;border:1px solid #cdded2;border-radius:9px;min-height:40px;padding:8px 12px;color:var(--forest);color-scheme:light}.chip-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.chip{background:#fff;border:1px solid #d4e2d8;color:#58715e;padding:7px 11px;border-radius:28px;font-weight:650;font-size:11px}.chip:hover,.chip.active{background:var(--forest2);border-color:var(--forest2);color:white}.button-primary{border:1px solid var(--forest2);background:var(--forest2);color:white;border-radius:9px;padding:10px 13px;font-size:12px;font-weight:700}.button-primary:hover{background:var(--forest)}.selected-period{font-size:11px;color:var(--muted)}.chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:14px}.chart-grid>div{min-width:0}.chart-controls{display:flex;gap:7px;flex-wrap:wrap}.toggle{border:1px solid #d8e6db;background:white;color:var(--muted);padding:7px 10px;border-radius:8px;font-size:11px;font-weight:650}.toggle.active{background:var(--green);border-color:var(--green);color:white}.chart-scroll{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;min-height:255px;scrollbar-color:#bedac7 transparent;scrollbar-width:thin}.chart-scroll svg{display:block;height:252px;max-width:none}.chart-empty{min-height:230px;display:grid;place-items:center;color:var(--muted);font-size:12px;text-align:center}.chart-note{font-size:10px;color:var(--muted);margin:4px 0 0}.small-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:13px;margin-top:14px}.type-list{margin-top:18px}.type-row{display:grid;grid-template-columns:64px 1fr 62px;align-items:center;gap:10px;margin:15px 0;font-size:12px}.type-track{height:9px;border-radius:20px;background:#eaf1ea;overflow:hidden}.type-bar{height:100%;border-radius:20px;background:var(--green);width:0}.type-bar.alt{background:#97c8a7}.type-bar.grey{background:#c1d1c5}.type-row b{text-align:right;color:var(--forest);font-variant-numeric:tabular-nums}.details-box{border:1px solid #d9e6dc;background:#f6faf7;border-radius:10px;padding:13px;margin-top:17px}.details-box h4{margin:0 0 8px;font-size:12px;color:var(--forest)}.details-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.details-grid div span{display:block;font-size:10px;color:var(--muted)}.details-grid div b{display:block;font-size:15px;color:var(--forest);margin-top:3px}.table-wrap{overflow-x:auto;max-height:480px;overflow-y:auto;border-radius:10px;border:1px solid var(--border)}table{border-collapse:collapse;width:100%;white-space:nowrap;font-size:12px}thead th{position:sticky;top:0;z-index:1;background:#eef5f0;text-align:right;color:#567462;padding:12px 13px;font-weight:750}thead th:first-child{text-align:left}tbody td{border-bottom:1px solid #e8eeea;padding:11px 13px;text-align:right;font-variant-numeric:tabular-nums}tbody td:first-child{text-align:left}tbody tr:last-child td{border-bottom:0}tbody tr{cursor:pointer}tbody tr:hover{background:#f2f8f3}tbody tr.selected{background:#dff0e4}tbody tr.missing-row td{color:#8a997f}tfoot td{background:#edf5ee;font-weight:750}.table-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.table-toolbar span{color:var(--muted);font-size:11px}.table-link{font-size:11px;background:white;border:1px solid #d5e6db;border-radius:9px;padding:8px 10px;color:var(--green);font-weight:700}.table-link:hover{background:var(--pale)}.method-list{display:grid;gap:13px;max-width:850px}.method-list .card p{font-size:13px;color:var(--muted)}.footer{border-top:1px solid var(--border);padding:25px 0 34px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:11px}
+@media(max-width:980px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}.chart-grid{grid-template-columns:1fr}.small-grid{grid-template-columns:1fr}.overview-grid{grid-template-columns:1fr}}@media(max-width:660px){.wrap{width:min(100% - 28px,1280px)}.header{display:block;padding:22px 0}.head-status{margin-top:17px;width:max-content}.pane-head{display:block}.date-stamp{display:inline-block;margin-top:10px}.grid2{grid-template-columns:1fr}.filter-form .field{max-width:none}.filter-form>.button-primary{flex:0 0 auto}.card{padding:16px}.ring-layout{gap:16px}.ring{width:128px;height:128px}.ring-inner{width:98px;height:98px}.ring-inner b{font-size:22px}.line-item{font-size:11px}.tab-nav button{padding:14px 13px;font-size:12px}.stat-number{font-size:22px}.details-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:390px){.grid4{grid-template-columns:1fr}.filter-form{display:flex;flex-direction:column;align-items:stretch}.filter-form .field{width:100%;flex:auto}.ring-layout{display:block}.ring{margin:0 auto 18px}}@media print{.masthead{background:white;color:var(--forest)}.masthead .tab-nav,.no-print,.footer{display:none!important}.pane:not([hidden]){display:block}.card{break-inside:avoid;box-shadow:none}.chart-scroll{overflow:visible}}
+</style>
+</head>
+<body>
+<div id="demo-banner" class="demo-banner" hidden>Aperçu local : production issue du rapport du 16/11/2026 ; avancement global illustratif. Ne pas publier cette démonstration.</div>
+<header class="masthead"><div class="wrap">
+ <div class="header"><div><p class="eyebrow">Tableau de bord · Réseaux d’assainissement</p><h1 class="site-title">Bormes-les-Mimosas</h1><p class="site-sub">Suivi d’avancement et de production terrain</p></div><div class="head-status"><span class="dot"></span><span>Consultation du projet</span></div></div>
+ <nav class="tab-nav" aria-label="Navigation principale" role="tablist">
+  <button id="tab-overview" role="tab" aria-controls="pane-overview" aria-selected="true" data-tab="overview">Vue d’ensemble</button>
+  <button id="tab-avancement" role="tab" aria-controls="pane-avancement" aria-selected="false" data-tab="avancement" tabindex="-1">Avancement global</button>
+  <button id="tab-production" role="tab" aria-controls="pane-production" aria-selected="false" data-tab="production" tabindex="-1">Production terrain</button>
+ </nav>
+</div></header>
+<main class="wrap">
+ <section class="pane" id="pane-overview" role="tabpanel" aria-labelledby="tab-overview">
+  <div class="pane-head"><div><p class="section-kicker">01 / Synthèse</p><h2>Vue d’ensemble</h2><p class="section-desc">Les indicateurs essentiels du suivi de projet</p></div><span class="date-stamp" id="overview-dates">Données en attente</span></div>
+  <div class="grid4">
+   <article class="card stat strong"><div class="stat-label">Linéaire réalisé</div><div class="stat-number" id="ov-arcs">—</div><p class="stat-detail">Avancement validé</p></article>
+   <article class="card stat"><div class="stat-label">Linéaire restant</div><div class="stat-number" id="ov-arcs-left">—</div><p class="stat-detail">Périmètre du projet</p></article>
+   <article class="card stat"><div class="stat-label">Production terrain</div><div class="stat-number" id="ov-terrain">—</div><p class="stat-detail">Cumul des relevés documentés</p></article>
+   <article class="card stat"><div class="stat-label">Heures Khélios</div><div class="stat-number" id="ov-hours">—</div><p class="stat-detail">Heures enregistrées</p></article>
+  </div>
+  <div class="overview-grid">
+   <article class="card"><div class="card-head"><div><h3>Avancement du projet</h3><p class="card-caption">Linéaire et plaques calculés sur la base QGIS consolidée</p></div></div>
+    <div class="overview-progress"><div><div class="progress-row"><span>ARCS · Linéaire</span><b id="ov-arc-pct">—</b></div><div class="progress-rail"><div class="progress-fill" id="ov-arc-progress"></div></div></div>
+     <div><div class="progress-row"><span>NOEUDS · Plaques</span><b id="ov-noeud-pct">—</b></div><div class="progress-rail"><div class="progress-fill" id="ov-noeud-progress"></div></div></div></div>
+    <div class="quick-links"><button class="quiet-btn" data-goto="avancement">Voir l’avancement</button><button class="quiet-btn" data-goto="production">Analyser les journées terrain</button></div>
+   </article>
+   <article class="card"><div class="card-head"><div><h3>Productivité terrain</h3><p class="card-caption">Rendements normalisés à 16 h</p></div></div>
+    <div class="line-item"><span>Linéaire / 16 h</span><strong id="ov-ml-16">—</strong></div><div class="line-item"><span>Plaques / 16 h</span><strong id="ov-plaques-16">—</strong></div><div class="line-item"><span>Dernière journée terrain</span><strong id="ov-lastdate">—</strong></div>
+    <div class="hint">La production relevée et l’avancement validé répondent à deux méthodes de calcul différentes et ne s’additionnent pas.</div>
+   </article>
+  </div>
+ </section>
+ <section class="pane" id="pane-avancement" role="tabpanel" aria-labelledby="tab-avancement" hidden>
+  <div class="pane-head"><div><p class="section-kicker">02 / État d’avancement</p><h2>Avancement global</h2><p class="section-desc">Situation de la base QGIS consolidée</p></div><span class="date-stamp" id="av-updated">Mise à jour : en attente</span></div>
+  <div class="grid4"><article class="card stat strong"><div class="stat-label">Linéaire réalisé</div><div class="stat-number" id="av-done">—</div></article><article class="card stat"><div class="stat-label">Linéaire restant</div><div class="stat-number" id="av-left">—</div></article><article class="card stat"><div class="stat-label">Plaques réalisées</div><div class="stat-number" id="av-pdone">—</div></article><article class="card stat"><div class="stat-label">Plaques restantes</div><div class="stat-number" id="av-pleft">—</div></article></div>
+  <div class="grid2 gap-top">
+   <article class="card"><div class="card-head"><div><h3>ARCS · Linéaire</h3><p class="card-caption">Réalisé / restant</p></div><span class="tag">mètres</span></div><div class="ring-layout"><div class="ring" id="ring-arcs"><div class="ring-inner"><b id="ring-arcs-pct">—</b><small>réalisé</small></div></div><div class="ring-lines"><div class="line-item"><span>Réalisé</span><strong id="ring-arcs-done">—</strong></div><div class="line-item"><span>Restant</span><strong id="ring-arcs-left">—</strong></div><div class="line-item"><span>Total</span><strong id="ring-arcs-total">—</strong></div></div></div></article>
+   <article class="card"><div class="card-head"><div><h3>NOEUDS · Plaques</h3><p class="card-caption">Réalisées / restantes</p></div><span class="tag">unités</span></div><div class="ring-layout"><div class="ring" id="ring-plaques"><div class="ring-inner"><b id="ring-plaques-pct">—</b><small>réalisées</small></div></div><div class="ring-lines"><div class="line-item"><span>Réalisées</span><strong id="ring-plaques-done">—</strong></div><div class="line-item"><span>Restantes</span><strong id="ring-plaques-left">—</strong></div><div class="line-item"><span>Total</span><strong id="ring-plaques-total">—</strong></div></div></div></article>
+  </div>
+  <div class="hint"><span id="av-method-note">Les zones d’exclusion et les règles de statut sont appliquées par le script QGIS.</span></div>
+ </section>
+ <section class="pane" id="pane-production" role="tabpanel" aria-labelledby="tab-production" hidden>
+  <div class="pane-head"><div><p class="section-kicker">03 / Analyse des relevés</p><h2>Production terrain</h2><p class="section-desc">Choisissez une date pour consulter les relevés et leur évolution jusqu’à ce jour</p></div><span class="date-stamp" id="pr-updated">Mise à jour : en attente</span></div>
+  <div class="card filter-card no-print"><div class="filter-title"><div><h3>Filtrer les journées</h3><p class="card-caption">Un seul jour de référence, avec des raccourcis pour la période affichée</p></div><span class="selected-period" id="range-summary"></span></div>
+   <div class="filter-form"><div class="field"><label for="date-asof">Afficher la production jusqu’au</label><input type="date" id="date-asof" aria-describedby="date-asof-help"></div><button id="reset-range" class="button-primary">Dernière date disponible</button></div>
+   <p class="filter-help" id="date-asof-help">La date choisie détermine la fin des graphiques et des totaux. Choisissez ensuite la durée à afficher.</p>
+   <div class="chip-row" role="group" aria-label="Période avant la date choisie"><button class="chip active" data-range="all" aria-pressed="true">Toutes les dates</button><button class="chip" data-range="30" aria-pressed="false">30 derniers jours</button><button class="chip" data-range="90" aria-pressed="false">90 derniers jours</button></div>
+  </div>
+  <div class="grid4 gap-top"><article class="card stat strong"><div class="stat-label">Linéaire sur la période</div><div class="stat-number" id="period-ml">—</div><p class="stat-detail">Production documentée</p></article><article class="card stat"><div class="stat-label">Plaques sur la période</div><div class="stat-number" id="period-plaques">—</div><p class="stat-detail">REG, BRA et autres</p></article><article class="card stat"><div class="stat-label">Heures sur la période</div><div class="stat-number" id="period-hours">—</div><p class="stat-detail">Toutes les heures connues</p></article><article class="card stat"><div class="stat-label">Journées documentées</div><div class="stat-number" id="period-days">—</div><p class="stat-detail" id="period-missing">Sur la période sélectionnée</p></article></div>
+  <div class="card gap-top"><div class="card-head"><div><h3>Évolution chronologique</h3><p class="card-caption">Production quotidienne et cumul de la période, d’après Date_gps</p></div><div class="chart-controls no-print" role="group" aria-label="Indicateur du graphique"><button class="toggle active" data-metric="lineaire" aria-pressed="true">Linéaire (mL)</button><button class="toggle" data-metric="plaques" aria-pressed="false">Plaques</button></div></div>
+   <div class="chart-grid">
+    <div><div class="card-head"><div><h3>Par journée</h3><p class="card-caption">Valeur relevée à chaque date</p></div><span class="tag" id="daily-unit">mL</span></div><div class="chart-scroll" id="chart-daily" aria-label="Graphique de la production quotidienne"></div></div>
+    <div><div class="card-head"><div><h3>Cumul sur la sélection</h3><p class="card-caption">Somme progressive des relevés documentés</p></div><span class="tag" id="cumulative-unit">mL</span></div><div class="chart-scroll" id="chart-cumulative" aria-label="Graphique cumulatif de la période"></div></div>
+   </div>
+   <p class="chart-note">Cliquez sur une barre ou un point pour afficher le détail de la journée. Les jours sans fichier terrain ne sont pas comptabilisés comme une production nulle.</p>
+  </div>
+  <div class="small-grid">
+    <article class="card"><div class="card-head"><div><h3>Répartition des plaques</h3><p class="card-caption">Pour la période sélectionnée</p></div></div>
+     <div class="type-list"><div class="type-row"><span>REG</span><div class="type-track"><div id="type-reg" class="type-bar"></div></div><b id="type-reg-n">—</b></div><div class="type-row"><span>BRA</span><div class="type-track"><div id="type-bra" class="type-bar alt"></div></div><b id="type-bra-n">—</b></div><div class="type-row"><span>Autres</span><div class="type-track"><div id="type-autres" class="type-bar grey"></div></div><b id="type-autres-n">—</b></div></div>
+     <div class="details-box" aria-live="polite"><h4 id="day-title">Sélectionnez une journée</h4><div class="details-grid"><div><span>Linéaire</span><b id="day-ml">—</b></div><div><span>Plaques</span><b id="day-plaques">—</b></div><div><span>Heures</span><b id="day-heures">—</b></div><div><span>REG</span><b id="day-reg">—</b></div><div><span>BRA</span><b id="day-bra">—</b></div><div><span>Autres</span><b id="day-autres">—</b></div></div><div style="margin-top:12px"><button id="limit-to-day" class="quiet-btn no-print" disabled>Afficher la chronologie jusqu’à ce jour</button></div></div>
+     <div class="hint" id="period-yield">Rendement sur la période : —</div>
+    </article>
+    <article class="card"><div class="table-toolbar"><div><h3>Journées terrain</h3><p class="card-caption">Cliquez sur une ligne pour examiner ses données</p></div><button id="csv-export" class="table-link no-print">Exporter CSV</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Date</th><th>Linéaire (mL)</th><th>Plaques</th><th>Heures</th><th>Statut</th></tr></thead><tbody id="daily-table"><tr><td colspan="5">En attente des données</td></tr></tbody></table></div>
+      <div class="hint" id="quality-note">Les jours avec des heures mais sans fichier terrain restent affichés sans production attribuée.</div>
+    </article>
+  </div>
+ </section>
+</main>
+<footer class="wrap footer"><span>Bormes-les-Mimosas · Tableau de bord des réseaux</span><span id="footer-status">Données actualisées après publication depuis QGIS</span></footer>
+<script>
+'use strict';
+const $=id=>document.getElementById(id), NF=(v,n=0)=>typeof v==='number'&&Number.isFinite(v)?v.toLocaleString('fr-FR',{minimumFractionDigits:n,maximumFractionDigits:n}):'—',M=v=>typeof v==='number'&&Number.isFinite(v)?NF(v,1)+' mL':'—',N=v=>typeof v==='number'&&Number.isFinite(v),D=s=>/^\d{4}-\d{2}-\d{2}$/.test(s||'')?s.slice(8,10)+'/'+s.slice(5,7)+'/'+s.slice(0,4):'—',clamp=v=>Math.min(100,Math.max(0,N(v)?v:0));
+const state={a:null,p:null,days:[],from:'',to:'',metric:'lineaire',selected:'',rangePreset:'all',dataReady:false,customPeriod:false};
+function set(id,v){const node=$(id);if(node)node.textContent=v;}
+function showTab(tab){document.querySelectorAll('[role="tab"]').forEach(b=>{const active=b.dataset.tab===tab;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;});document.querySelectorAll('.pane').forEach(p=>p.hidden=p.id!=='pane-'+tab);try{history.replaceState(null,'','#'+tab)}catch(e){};}
+document.querySelectorAll('[role="tab"]').forEach(b=>{b.addEventListener('click',()=>showTab(b.dataset.tab));b.addEventListener('keydown',e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;const tabs=[...document.querySelectorAll('[role="tab"]')];let i=tabs.indexOf(b)+(e.key==='ArrowRight'?1:-1);i=(i+tabs.length)%tabs.length;tabs[i].click();tabs[i].focus();e.preventDefault();});});document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.goto)));if(['#overview','#avancement','#production'].includes(location.hash))showTab(location.hash.slice(1));
+function readA(d){if(!d||d.source!=='avancement'||d.schema_version!==1)return;state.a=d;const a=d.arcs||{},p=d.noeuds||{},total=(a.realises_m||0)+(a.restants_m||0),totalP=(p.realises||0)+(p.restants||0),aPct=N(a.pct)?a.pct*100:0,pPct=N(p.pct)?p.pct*100:0;
+set('av-updated','Mise à jour : '+(d.updated_at||'—'));set('av-done',M(a.realises_m));set('av-left',M(a.restants_m));set('av-pdone',NF(p.realises));set('av-pleft',NF(p.restants));set('ov-arcs',M(a.realises_m));set('ov-arcs-left',M(a.restants_m));set('ov-arc-pct',NF(aPct,1)+' %');set('ov-noeud-pct',NF(pPct,1)+' %');$('ov-arc-progress').style.width=clamp(aPct)+'%';$('ov-noeud-progress').style.width=clamp(pPct)+'%';
+for(const [id,pct] of [['ring-arcs',aPct],['ring-plaques',pPct]])$(id).style.setProperty('--value',clamp(pct)+'%');set('ring-arcs-pct',NF(aPct,1)+' %');set('ring-arcs-done',M(a.realises_m));set('ring-arcs-left',M(a.restants_m));set('ring-arcs-total',M(total));set('ring-plaques-pct',NF(pPct,1)+' %');set('ring-plaques-done',NF(p.realises));set('ring-plaques-left',NF(p.restants));set('ring-plaques-total',NF(totalP));set('av-method-note','Refoulement : '+(d.refoulement_inclus?'inclus':'exclus')+' · Objectif : '+NF(d.objectif_m_par_jour)+' mL/jour · Durée théorique restante : '+NF(a.jours_estimes,1)+' jours. Les exclusions suivent les règles QGIS.');updateOverviewDates();}
+function cleanDays(d){const a=Array.isArray(d.journees)?d.journees:(Array.isArray(d.dernieres_journees)?d.dernieres_journees:[]);const byDate=new Map();for(const row of a){if(!/^\d{4}-\d{2}-\d{2}$/.test(row.date||''))continue;const doc=row.terrain_documente===true||row.terrain_documente!==false&&N(row.lineaire_m);byDate.set(row.date,{date:row.date,terrain_documente:doc,heures_renseignees:row.heures_renseignees!==false&&N(row.heures),lineaire_m:doc&&N(row.lineaire_m)?row.lineaire_m:null,plaques:doc&&N(row.plaques)?row.plaques:null,reg:doc&&N(row.reg)?row.reg:null,bra:doc&&N(row.bra)?row.bra:null,autres:doc&&N(row.autres)?row.autres:null,heures:N(row.heures)?row.heures:null});}return [...byDate.values()].sort((a,b)=>a.date.localeCompare(b.date));}
+function readP(d){
+  if(!d||d.source!=='production'||d.schema_version!==1)return;
+  state.p=d;
+  const days=cleanDays(d);
+  state.days=days;
+  const picker=$('date-asof');
+  if(days.length){
+    picker.min=days[0].date;
+    picker.max=days.at(-1).date;
+    if(!state.customPeriod||!state.to){state.to=days.at(-1).date;}
+    else if(state.to>days.at(-1).date){state.to=days.at(-1).date;}
+    picker.value=state.to;
+  }else{
+    state.from='';state.to='';picker.value='';picker.min='';picker.max='';
+  }
+  set('pr-updated','Mise à jour : '+(d.updated_at||'—'));
+  set('ov-terrain',M(d.production?.lineaire_m));
+  set('ov-hours',N(d.khelios?.heures)?NF(d.khelios.heures,0)+' h':'—');
+  set('ov-ml-16',M(d.rendement?.metres_par_16h));
+  set('ov-plaques-16',NF(d.rendement?.plaques_par_16h,1));
+  set('ov-lastdate',D(d.derniere_date_terrain));
+  updateOverviewDates();
+  chooseRange(state.rangePreset);
 }
-document.getElementById('apbar').style.width=pct(d.arcs.pct)+'%';document.getElementById('npbar').style.width=pct(d.noeuds.pct)+'%';
-
-</script></body></html>
+function updateOverviewDates(){let a=state.a?.updated_at||'—',p=state.p?.updated_at||'—';set('overview-dates','Avancement : '+a+' · Terrain : '+p);}
+function periodRows(){return state.days.filter(d=>(!state.from||d.date>=state.from)&&(!state.to||d.date<=state.to));}
+function selectDay(date){state.selected=date;const d=periodRows().find(x=>x.date===date);$('limit-to-day').disabled=!d;if(!d){set('day-title','Sélectionnez une journée');for(const x of ['day-ml','day-plaques','day-heures','day-reg','day-bra','day-autres'])set(x,'—');return;}set('day-title','Journée du '+D(d.date)+(d.terrain_documente?'':' · sans fichier terrain'));set('day-ml',M(d.lineaire_m));set('day-plaques',NF(d.plaques));set('day-heures',N(d.heures)?NF(d.heures,1)+' h':'—');set('day-reg',NF(d.reg));set('day-bra',NF(d.bra));set('day-autres',NF(d.autres));document.querySelectorAll('#daily-table tr[data-date]').forEach(row=>{row.classList.toggle('selected',row.dataset.date===date);});}
+function renderPeriod(){const r=periodRows();const docs=r.filter(d=>d.terrain_documente);const sum=field=>docs.reduce((v,d)=>v+(N(d[field])?d[field]:0),0);const ml=sum('lineaire_m'),plaques=sum('plaques'),hours=r.reduce((v,d)=>v+(N(d.heures)?d.heures:0),0),missing=r.filter(x=>!x.terrain_documente).length,missingHours=docs.filter(x=>!x.heures_renseignees).length;
+set('range-summary',r.length+' date(s) · '+(r.length?D(r[0].date)+' au '+D(r.at(-1).date):'aucune date'));set('period-ml',M(ml));set('period-plaques',NF(plaques));set('period-hours',NF(hours,1)+' h');set('period-days',NF(docs.length));set('period-missing',missing+' sans fichier terrain');set('period-yield',hours>0?'Rendement sur période : '+M(ml/hours*16)+' / 16 h · '+NF(plaques/hours*16,1)+' plaques / 16 h':'Rendement non disponible : heures Khélios non renseignées');
+let reg=sum('reg'),bra=sum('bra'),autres=sum('autres');for(const [name,val] of [['reg',reg],['bra',bra],['autres',autres]]){set('type-'+name+'-n',NF(val));$('type-'+name).style.width=(plaques>0?clamp(val/plaques*100):0)+'%';}const onlyRecent=state.p&&(!Array.isArray(state.p.journees));const horsDate=state.p?.sans_date?.lineaire_m||state.p?.sans_date?.plaques?' Certains relevés sans Date_gps valide ne figurent pas dans les graphiques.':'';set('quality-note',onlyRecent?'Ancien format détecté : seules les six dernières journées sont disponibles. Exécutez le script Rapport V8 pour obtenir toutes les dates.':missing+' journée(s) sans relevés terrain dans la période ; '+missingHours+' journée(s) terrain sans heures. Une production inconnue n’est pas assimilée à zéro.'+horsDate);
+if(!r.some(x=>x.date===state.selected)){state.selected=docs.at(-1)?.date||r.at(-1)?.date||'';}renderTable(r);selectDay(state.selected);drawCharts(docs);}
+function renderTable(rows){const body=$('daily-table');body.replaceChildren();if(!rows.length){let tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=5;td.textContent='Aucune journée dans cette période';tr.appendChild(td);body.appendChild(tr);return;}for(const d of rows.slice().reverse()){let tr=document.createElement('tr');tr.dataset.date=d.date;tr.tabIndex=0;tr.setAttribute('aria-label','Consulter le '+D(d.date));if(!d.terrain_documente)tr.className='missing-row';const values=[D(d.date),N(d.lineaire_m)?NF(d.lineaire_m,1):'—',N(d.plaques)?NF(d.plaques):'—',N(d.heures)?NF(d.heures,1):'—',d.terrain_documente?'Documenté':'Non documenté'];for(const value of values){let td=document.createElement('td');td.textContent=value;tr.appendChild(td);}tr.addEventListener('click',()=>selectDay(d.date));tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectDay(d.date);}});body.appendChild(tr);}}
+const SVG='http://www.w3.org/2000/svg';function svgEl(tag,attrs={},text=''){const e=document.createElementNS(SVG,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));if(text)e.textContent=text;return e;}
+function chartHost(id,docs,accum){const host=$(id);host.replaceChildren();if(!docs.length){let d=document.createElement('div');d.className='chart-empty';d.textContent='Aucune production documentée pour cette période';host.appendChild(d);return;}const metric=state.metric,values=docs.map(x=>N(x[metric+'_m'])?x[metric+'_m']:N(x[metric])?x[metric]:0),totals=[];let cumul=0;for(const x of values){cumul+=x;totals.push(cumul);}const plotted=accum?totals:values,max=Math.max(1,...plotted),niceMax=Math.ceil(max/4/(Math.pow(10,Math.floor(Math.log10(max/4||1)))))*Math.pow(10,Math.floor(Math.log10(max/4||1)))*4||4;const width=Math.max(570,docs.length*46+78),height=252,margin={l:64,r:20,t:14,b:47},plotW=width-margin.l-margin.r,plotH=height-margin.t-margin.b,n=docs.length,x=i=>margin.l+(i+.5)/n*plotW,y=v=>margin.t+plotH*(1-v/niceMax);const svg=svgEl('svg',{viewBox:`0 0 ${width} ${height}`,width,height,role:'img','aria-label':accum?'Production cumulée sur la sélection':'Production par journée'});svg.appendChild(svgEl('rect',{x:0,y:0,width,height,fill:'white'}));for(let t=0;t<=4;t++){const val=niceMax*t/4,yy=y(val);svg.appendChild(svgEl('line',{x1:margin.l,y1:yy,x2:width-margin.r,y2:yy,stroke:'#e1ebe4','stroke-width':1}));svg.appendChild(svgEl('text',{x:margin.l-10,y:yy+4,'text-anchor':'end',fill:'#789282','font-size':10},NF(val,0)));}const tickStep=Math.max(1,Math.ceil(n/7));for(let i=0;i<n;i++){if(i%tickStep===0||i===n-1){svg.appendChild(svgEl('text',{x:x(i),y:height-22,'text-anchor':'middle',fill:'#779080','font-size':10},docs[i].date.slice(8,10)+'/'+docs[i].date.slice(5,7)));}}
+if(accum){const points=plotted.map((v,i)=>`${x(i)},${y(v)}`).join(' ');svg.appendChild(svgEl('polyline',{points,stroke:'#238357','stroke-width':2.8,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'}));}const barWidth=Math.min(25,Math.max(7,plotW/n*.57));plotted.forEach((v,i)=>{const doc=docs[i],active=doc.date===state.selected;let item;if(accum){item=svgEl('circle',{cx:x(i),cy:y(v),r:active?5.7:3.5,fill:active?'#143d2d':'#4da677',stroke:'white','stroke-width':1.7});}else{item=svgEl('rect',{x:x(i)-barWidth/2,y:y(v),width:barWidth,height:Math.max(1,margin.t+plotH-y(v)),rx:3,fill:active?'#143d2d':'#50a578'});}item.style.cursor='pointer';item.appendChild(svgEl('title',{},D(doc.date)+' · '+(accum?'Cumul : ':'Journée : ')+NF(v,metric==='lineaire'?1:0)+(metric==='lineaire'?' mL':' plaques')));item.addEventListener('click',()=>{selectDay(doc.date);drawCharts(docs);});svg.appendChild(item);if(accum){let area=svgEl('rect',{x:x(i)-Math.max(8,plotW/n*.43),y:margin.t,width:Math.max(16,plotW/n*.86),height:plotH,fill:'transparent'});area.style.cursor='pointer';area.appendChild(svgEl('title',{},D(doc.date)+' : '+NF(v,1)));area.addEventListener('click',()=>{selectDay(doc.date);drawCharts(docs);});svg.appendChild(area);}});
+svg.appendChild(svgEl('text',{x:width/2,y:height-3,'text-anchor':'middle',fill:'#7b9384','font-size':10},'Date du relevé'));host.appendChild(svg);}
+function drawCharts(docs){set('daily-unit',state.metric==='lineaire'?'mL':'plaques');set('cumulative-unit',state.metric==='lineaire'?'mL':'plaques');chartHost('chart-daily',docs,false);chartHost('chart-cumulative',docs,true);}
+document.querySelectorAll('[data-metric]').forEach(btn=>btn.addEventListener('click',()=>{state.metric=btn.dataset.metric;document.querySelectorAll('[data-metric]').forEach(b=>{b.classList.toggle('active',b===btn);b.setAttribute('aria-pressed',String(b===btn));});renderPeriod();}));
+function chooseRange(kind){
+  const days=state.days;
+  state.rangePreset=kind;
+  const picker=$('date-asof');
+  if(!days.length){state.from='';state.to='';renderPeriod();return;}
+  let end=state.to||days.at(-1).date;
+  if(end<days[0].date)end=days[0].date;
+  if(end>days.at(-1).date)end=days.at(-1).date;
+  state.to=end;
+  picker.value=end;
+  let from=days[0].date;
+  if(kind==='30'||kind==='90'){
+    const d=new Date(end+'T12:00:00Z');
+    d.setUTCDate(d.getUTCDate()-(Number(kind)-1));
+    from=d.toISOString().slice(0,10);
+  }
+  state.from=from;
+  document.querySelectorAll('[data-range]').forEach(b=>{
+    const active=b.dataset.range===kind;
+    b.classList.toggle('active',active);
+    b.setAttribute('aria-pressed',String(active));
+  });
+  renderPeriod();
+}
+document.querySelectorAll('[data-range]').forEach(b=>b.addEventListener('click',()=>{state.customPeriod=true;chooseRange(b.dataset.range);}));
+$('reset-range').addEventListener('click',()=>{
+  state.customPeriod=false;
+  state.to=state.days.at(-1)?.date||'';
+  chooseRange('all');
+});
+$('date-asof').addEventListener('change',()=>{
+  const date=$('date-asof').value;
+  if(!date)return;
+  state.to=date;
+  state.customPeriod=true;
+  chooseRange(state.rangePreset);
+});
+$('limit-to-day').addEventListener('click',()=>{
+  if(!state.selected)return;
+  state.to=state.selected;
+  state.customPeriod=true;
+  chooseRange(state.rangePreset);
+  $('date-asof').focus();
+});
+$('csv-export').addEventListener('click',()=>{const rows=periodRows(),header=['Date','Lineaire_m','Plaques','REG','BRA','Autres','Heures','Terrain_documente'];const lines=[header.join(';'),...rows.map(d=>[d.date,d.lineaire_m,d.plaques,d.reg,d.bra,d.autres,d.heures,d.terrain_documente?'Oui':'Non'].map(v=>v==null?'':String(v).replace('.',',')).join(';'))];const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='Bormes_journees_'+(state.from||'debut')+'_'+(state.to||'fin')+'.csv';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),500);});
+async function fetchJSON(path){try{const response=await fetch('./'+path+'?t='+Date.now(),{cache:'no-store'});if(!response.ok)return null;return await response.json();}catch(error){return null;}}
+async function refresh(){if(window.BORMES_DEMO_DATA){$('demo-banner').hidden=false;readA(window.BORMES_DEMO_DATA.avancement);readP(window.BORMES_DEMO_DATA.production);return;}const [a,p]=await Promise.all([fetchJSON('avancement.json'),fetchJSON('production.json')]);if(a)readA(a);if(p)readP(p);set('footer-status',a||p?'Publication depuis QGIS · données mises à jour automatiquement':'En attente de publication des données QGIS');}
+refresh();if(!window.BORMES_DEMO_DATA)setInterval(refresh,300000);
+</script>
+</body>
+</html>
