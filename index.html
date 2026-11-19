@@ -134,11 +134,6 @@ function readP(d){
     state.from='';state.to='';picker.value='';picker.min='';picker.max='';
   }
   set('pr-updated','Mise à jour : '+(d.updated_at||'—'));
-  set('ov-hours',N(d.khelios?.heures)?NF(d.khelios.heures,0)+' h':'—');
-  set('ov-ml-16',M(d.rendement?.metres_par_16h));
-  set('ov-plaques-16',NF(d.rendement?.plaques_par_16h,1));
-  set('ov-lastdate',D(d.derniere_date_terrain));
-  updateOverviewDates();
   chooseRange(state.rangePreset);
 }
 function periodRows(){return state.days.filter(d=>(!state.from||d.date>=state.from)&&(!state.to||d.date<=state.to));}
