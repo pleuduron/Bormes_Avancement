@@ -81,6 +81,40 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 #plaques-map{height:clamp(360px,50vw,590px);width:100%}.map-message{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:500;background:rgba(255,255,255,.96);padding:17px 20px;border-radius:12px;box-shadow:0 5px 26px #0002;max-width:440px;width:calc(100% - 32px);text-align:center;color:var(--forest);font-size:13px}
 .map-footnote{font-size:11px;color:var(--muted);line-height:1.5;margin:12px 0 0}
 @media(max-width:660px){.map-card{padding:16px}.map-option{flex:1 1 100%}.map-controls .quiet-btn{width:100%}}
+
+/* Production terrain V9 : présentation réorganisée, filtres inchangés */
+#pane-production .filter-card{margin-top:14px;margin-bottom:15px;padding:17px 21px;background:#f8fbf9}
+#pane-production .filter-title{margin-bottom:9px}
+#pane-production .filter-form{gap:10px}
+#pane-production .filter-help{margin:8px 0 0;line-height:1.45}
+#pane-production .chip-row{margin-top:10px}
+#pane-production .production-stats{margin-top:0}
+#pane-production .production-stats .stat{min-height:123px}
+#pane-production .production-overview-row{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:15px}
+#pane-production .production-overview-row>.card{min-width:0}
+#pane-production .production-yield-card{background:#f0f8f2;border-color:#cee4d3;padding:20px 22px}
+#pane-production .production-yield-card .yield-summary{border:0;background:transparent;padding:0;margin:0}
+#pane-production .production-yield-card .yield-summary h3{font-size:20px}
+#pane-production .production-yield-card .yield-row{padding:14px 0}
+#pane-production .production-yield-card .yield-row strong{font-size:clamp(20px,2vw,25px)}
+#pane-production .production-types-card{padding:20px 22px}
+#pane-production .production-types-card .card-head{margin-bottom:12px}
+#pane-production .production-types-card .type-list{margin-top:11px}
+#pane-production .production-types-card .type-row{font-size:14px;grid-template-columns:50px 1fr 72px;margin:21px 0;gap:12px}
+#pane-production .production-types-card .type-track{height:12px}
+#pane-production .production-types-card .type-row b{font-size:19px}
+#pane-production .production-day-card .card-head{margin-bottom:11px}
+#pane-production .production-day-card .details-box{background:transparent;border:0;padding:0;margin:0}
+#pane-production .production-day-card .details-box h4{font-size:15px;margin:0 0 14px}
+#pane-production .production-day-card .details-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}
+#pane-production .production-day-card .details-grid>div{background:#f4f8f5;border:1px solid #e0ece3;border-radius:10px;padding:12px}
+#pane-production .production-day-card .details-grid div span{font-size:12px}
+#pane-production .production-day-card .details-grid div b{font-size:20px}
+#pane-production .production-history-card .table-toolbar{margin-bottom:15px}
+#pane-production .production-history-card .table-wrap{max-height:460px}
+@media(max-width:920px){#pane-production .production-overview-row{grid-template-columns:1fr}}
+@media(max-width:700px){#pane-production .production-day-card .details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){#pane-production .production-day-card .details-grid{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
@@ -116,21 +150,14 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
  </section>
  <section class="pane" id="pane-production" role="tabpanel" aria-labelledby="tab-production" hidden>
   <div class="pane-head"><div><p class="section-kicker">02 / Analyse des relevés</p><h2>Production terrain</h2></div><span class="date-stamp" id="pr-updated">Mise à jour : en attente</span></div>
-  <div class="grid4 gap-top production-stats"><article class="card stat strong"><div class="stat-label" id="period-label-ml">Linéaire total</div><div class="stat-number" id="period-ml">—</div><p class="stat-detail" id="period-info-ml">Production documentée</p></article><article class="card stat"><div class="stat-label" id="period-label-plaques">Plaques totales</div><div class="stat-number" id="period-plaques">—</div><p class="stat-detail" id="period-info-plaques">REG et BRA</p></article><article class="card stat"><div class="stat-label" id="period-label-hours">Heures totales</div><div class="stat-number" id="period-hours">—</div><p class="stat-detail" id="period-info-hours">Toutes les heures connues</p></article><article class="card stat"><div class="stat-label" id="period-label-days">Journées documentées</div><div class="stat-number" id="period-days">—</div><p class="stat-detail" id="period-missing">Sur la période sélectionnée</p></article></div>
   <div class="card filter-card no-print"><div class="filter-title"><div><h3>Filtrer les journées</h3><p class="card-caption">Un seul jour de référence, avec des raccourcis pour la période affichée</p></div><span class="selected-period" id="range-summary"></span></div>
    <div class="filter-form"><div class="field"><label for="date-asof">Afficher la production jusqu’au</label><input type="date" id="date-asof" aria-describedby="date-asof-help"></div><button id="reset-range" class="button-primary">Dernière date disponible</button></div>
    <p class="filter-help" id="date-asof-help">La date choisie détermine la fin des graphiques et des totaux. Choisissez ensuite la durée à afficher.</p>
    <div class="chip-row" role="group" aria-label="Période avant la date choisie"><button class="chip active" data-range="all" aria-pressed="true">Toutes les dates</button><button class="chip" data-range="30" aria-pressed="false">30 derniers jours</button><button class="chip" data-range="5" aria-pressed="false">5 derniers jours</button></div>
   </div>
-  <div class="card gap-top"><div class="card-head"><div><h3>Évolution chronologique</h3></div><div class="chart-controls no-print" role="group" aria-label="Indicateur du graphique"><button class="toggle active" data-metric="lineaire" aria-pressed="true">Linéaire (mL)</button><button class="toggle" data-metric="plaques" aria-pressed="false">Plaques</button></div></div>
-   <div class="chart-grid chart-grid-single">
-    <div><div class="card-head"><div><h3>Par journée</h3></div><span class="tag" id="daily-unit">mL</span></div><div class="chart-scroll" id="chart-daily" aria-label="Graphique de la production quotidienne"></div></div>
-   </div>
-  </div>
-  <div class="small-grid">
-    <article class="card"><div class="card-head"><div><h3>Répartition des plaques</h3><p class="card-caption">Pour la période sélectionnée</p></div></div>
-     <div class="type-list"><div class="type-row"><span>REG</span><div class="type-track"><div id="type-reg" class="type-bar"></div></div><b id="type-reg-n">—</b></div><div class="type-row"><span>BRA</span><div class="type-track"><div id="type-bra" class="type-bar alt"></div></div><b id="type-bra-n">—</b></div></div>
-     <div class="details-box" aria-live="polite"><h4 id="day-title">Sélectionnez une journée</h4><div class="details-grid"><div><span>Linéaire</span><b id="day-ml">—</b></div><div><span>Plaques</span><b id="day-plaques">—</b></div><div><span>Heures</span><b id="day-heures">—</b></div><div><span>REG</span><b id="day-reg">—</b></div><div><span>BRA</span><b id="day-bra">—</b></div></div><div style="margin-top:12px"><button id="limit-to-day" class="quiet-btn no-print" disabled>Afficher la chronologie jusqu’à ce jour</button></div></div>
+  <div class="grid4 gap-top production-stats"><article class="card stat strong"><div class="stat-label" id="period-label-ml">Linéaire total</div><div class="stat-number" id="period-ml">—</div><p class="stat-detail" id="period-info-ml">Production documentée</p></article><article class="card stat"><div class="stat-label" id="period-label-plaques">Plaques totales</div><div class="stat-number" id="period-plaques">—</div><p class="stat-detail" id="period-info-plaques">REG et BRA</p></article><article class="card stat"><div class="stat-label" id="period-label-hours">Heures totales</div><div class="stat-number" id="period-hours">—</div><p class="stat-detail" id="period-info-hours">Toutes les heures connues</p></article><article class="card stat"><div class="stat-label" id="period-label-days">Journées documentées</div><div class="stat-number" id="period-days">—</div><p class="stat-detail" id="period-missing">Sur la période sélectionnée</p></article></div>
+  <div class="production-overview-row">
+   <article class="card production-yield-card">
      <section class="yield-summary" id="period-yield" aria-live="polite">
       <h3>Rendement sur la période</h3>
       <p class="yield-caption">Production moyenne pour 16 heures de travail</p>
@@ -138,12 +165,27 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
       <div class="yield-row"><span>Plaques relevées / 16 h</span><strong id="period-yield-plaques">—</strong></div>
       <p class="yield-warning" id="period-yield-warning" hidden>Rendement indisponible : aucune heure Khélios renseignée sur cette période.</p>
      </section>
-    </article>
-    <article class="card"><div class="table-toolbar"><div><h3>Journées terrain</h3><p class="card-caption">Cliquez sur une ligne pour examiner ses données</p></div><button id="csv-export" class="table-link no-print">Exporter CSV</button></div>
+   </article>
+   <article class="card production-types-card">
+    <div class="card-head"><div><h3>Répartition des plaques</h3><p class="card-caption">Pour la période sélectionnée</p></div></div>
+     <div class="type-list"><div class="type-row"><span>REG</span><div class="type-track"><div id="type-reg" class="type-bar"></div></div><b id="type-reg-n">—</b></div><div class="type-row"><span>BRA</span><div class="type-track"><div id="type-bra" class="type-bar alt"></div></div><b id="type-bra-n">—</b></div></div>
+   </article>
+  </div>
+  <div class="card gap-top"><div class="card-head"><div><h3>Évolution chronologique</h3></div><div class="chart-controls no-print" role="group" aria-label="Indicateur du graphique"><button class="toggle active" data-metric="lineaire" aria-pressed="true">Linéaire (mL)</button><button class="toggle" data-metric="plaques" aria-pressed="false">Plaques</button></div></div>
+   <div class="chart-grid chart-grid-single">
+    <div><div class="card-head"><div><h3>Par journée</h3></div><span class="tag" id="daily-unit">mL</span></div><div class="chart-scroll" id="chart-daily" aria-label="Graphique de la production quotidienne"></div></div>
+   </div>
+  </div>
+  <article class="card production-day-card gap-top">
+   <div class="card-head"><div><h3>Détail de la journée</h3><p class="card-caption">Sélectionnez une barre du graphique ou une ligne du tableau</p></div></div>
+     <div class="details-box" aria-live="polite"><h4 id="day-title">Sélectionnez une journée</h4><div class="details-grid"><div><span>Linéaire</span><b id="day-ml">—</b></div><div><span>Plaques</span><b id="day-plaques">—</b></div><div><span>Heures</span><b id="day-heures">—</b></div><div><span>REG</span><b id="day-reg">—</b></div><div><span>BRA</span><b id="day-bra">—</b></div></div><div style="margin-top:12px"><button id="limit-to-day" class="quiet-btn no-print" disabled>Afficher la chronologie jusqu’à ce jour</button></div></div>
+  </article>
+  <article class="card production-history-card gap-top">
+    <div class="history-content"><div class="table-toolbar"><div><h3>Journées terrain</h3><p class="card-caption">Cliquez sur une ligne pour examiner ses données</p></div><button id="csv-export" class="table-link no-print">Exporter CSV</button></div>
       <div class="table-wrap"><table><thead><tr><th>Date</th><th>Linéaire (m)</th><th>Plaques</th><th>Heures</th><th>Statut</th></tr></thead><tbody id="daily-table"><tr><td colspan="5">En attente des données</td></tr></tbody></table></div>
       <div class="hint" id="quality-note">Les jours avec des heures mais sans fichier terrain restent affichés sans production attribuée.</div>
-    </article>
-  </div>
+    </div>
+  </article>
  </section>
 </main>
 <footer class="wrap footer"><span>Bormes-les-Mimosas · Tableau de bord des réseaux</span><span id="footer-status">Données actualisées après publication depuis QGIS</span></footer>
