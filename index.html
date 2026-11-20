@@ -115,6 +115,11 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 @media(max-width:920px){#pane-production .production-overview-row{grid-template-columns:1fr}}
 @media(max-width:700px){#pane-production .production-day-card .details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:420px){#pane-production .production-day-card .details-grid{grid-template-columns:1fr}}
+
+/* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
+.nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
+.nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
+@media print{.nav-sticky{display:none!important}}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
@@ -122,11 +127,12 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 <div id="demo-banner" class="demo-banner" hidden>Aperçu local : production issue du rapport du 16/11/2026 ; avancement global illustratif. Ne pas publier cette démonstration.</div>
 <header class="masthead"><div class="wrap">
  <div class="header"><div><p class="eyebrow">Tableau de bord · Réseaux d’assainissement</p><h1 class="site-title">Bormes-les-Mimosas</h1><p class="site-sub">Suivi d’avancement et de production terrain</p></div><div class="head-status"><span class="dot"></span><span>SE2T</span></div></div>
- <nav class="tab-nav" aria-label="Navigation principale" role="tablist">
+</div></header>
+<div class="nav-sticky"><nav class="tab-nav wrap" aria-label="Navigation principale" role="tablist">
   <button id="tab-avancement" role="tab" aria-controls="pane-avancement" aria-selected="true" data-tab="avancement">Avancement global</button>
   <button id="tab-production" role="tab" aria-controls="pane-production" aria-selected="false" data-tab="production" tabindex="-1">Production terrain</button>
  </nav>
-</div></header>
+</div>
 <main class="wrap">
  <section class="pane" id="pane-avancement" role="tabpanel" aria-labelledby="tab-avancement">
   <div class="pane-head"><div><p class="section-kicker">01 / État d’avancement</p><h2>Avancement global</h2></div><span class="date-stamp" id="av-updated">Mise à jour : en attente</span></div>
