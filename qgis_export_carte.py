@@ -2,7 +2,7 @@
 """Bormes — Export de la carte interactive des plaques vers GitHub Pages.
 
 Depuis la console Python de QGIS :
-exec(open(r"C:\Users\c.linares.GEOSATING\Documents\Bormes_Avancement\qgis_export_carte.py", encoding="utf-8").read())
+exec(open(r"C:/Users/c.linares.GEOSATING/Documents/Bormes_Avancement/qgis_export_carte.py", encoding="utf-8").read())
 
 L'export ne modifie pas les couches QGIS.
 Seules les coordonnées WGS84 et le statut sont publiés.
