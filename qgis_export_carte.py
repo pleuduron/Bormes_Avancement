@@ -22,6 +22,8 @@ from qgis.core import (
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtWidgets import QFileDialog, QMessageBox
 
+CLE_AUTORISATION_CARTE = 'BormesAvancement/GitHubPublication/ConsentementCarteCoordonneesV1'
+
 
 def _trouver_couches():
     racine = QgsProject.instance().layerTreeRoot()
@@ -97,7 +99,10 @@ def _geojson(terrain, manquants):
 
 
 def _autoriser_publication(compte):
-    # Autorisation distincte de la publication des indicateurs statistiques.
+    # Confirmation une seule fois par poste, distincte des statistiques.
+    settings = QSettings()
+    if settings.value(CLE_AUTORISATION_CARTE, False, type=bool):
+        return True
     texte = (
         'Ce dépôt GitHub est PUBLIC.\n\n'
         'Les coordonnées précises des plaques seront librement accessibles '
@@ -106,10 +111,13 @@ def _autoriser_publication(compte):
         'Plaques restantes (noir) : {manquante}\n\n'
         'Confirmez-vous la publication de ces positions géographiques ?'
     ).format(**compte)
-    return QMessageBox.question(
+    autorise = QMessageBox.question(
         None, 'Autorisation des coordonnées publiques', texte,
         QMessageBox.Yes | QMessageBox.No, QMessageBox.No
     ) == QMessageBox.Yes
+    if autorise:
+        settings.setValue(CLE_AUTORISATION_CARTE, True)
+    return autorise
 
 
 def _repo():
@@ -158,6 +166,20 @@ def _publier(donnees, repo):
     git('push', 'origin', 'main', timeout=180)
 
 
+def actualiser_automatiquement(repo):
+    """Actualise la carte après une publication réussie depuis QGIS.
+
+    Retourne False si l'autorisation a été refusée. Toute exception est
+    remontée au module appelant pour signaler l'échec séparément.
+    """
+    terrain, manquants = _trouver_couches()
+    donnees, compte, ignores = _geojson(terrain, manquants)
+    if not _autoriser_publication(compte):
+        return False
+    _publier(donnees, Path(repo))
+    return True
+
+
 def main():
     try:
         terrain, manquants = _trouver_couches()
@@ -178,4 +200,5 @@ def main():
         raise
 
 
-main()
+if __name__ == '__main__':
+    main()
