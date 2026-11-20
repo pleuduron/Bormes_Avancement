@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source": "avancement",
-  "updated_at": "19/11/2026 14:01:46",
-  "objectif_m_par_jour": 1384.0,
+  "updated_at": "20/11/2026 09:04:59",
+  "objectif_m_par_jour": 1385.0,
   "refoulement_inclus": false,
   "arcs": {
     "realises_m": 48000.416168115145,
@@ -10,7 +10,7 @@
     "realises_n": 2537,
     "restants_n": 234,
     "pct": 0.9541441408287744,
-    "jours_estimes": 1.6668240566964707
+    "jours_estimes": 1.6656205736230436
   },
   "noeuds": {
     "realises": 1800,
