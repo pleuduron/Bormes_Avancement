@@ -27,16 +27,16 @@ CLE_AUTORISATION_CARTE = 'BormesAvancement/GitHubPublication/ConsentementCarteCo
 
 def _trouver_couches():
     racine = QgsProject.instance().layerTreeRoot()
-    groupe = racine.findGroup('DONNE TERRAIN COMPLETE')
+    groupe = racine.findGroup('DONNEE TERRAIN COMPLETE')
     if groupe is None:
-        raise RuntimeError('Groupe introuvable : DONNE TERRAIN COMPLETE')
+        raise RuntimeError('Groupe introuvable : DONNEE TERRAIN COMPLETE')
     terrain = [node.layer() for node in groupe.findLayers()
                if node.layer() and node.layer().name() == 'REGARD_GST']
     manquants = [node.layer() for node in racine.children()
                  if isinstance(node, QgsLayerTreeLayer)
                  and node.layer() and node.layer().name() == 'PLAQUES_MANQUANT']
     if len(terrain) != 1:
-        raise RuntimeError('Une seule couche REGARD_GST doit se trouver dans DONNE TERRAIN COMPLETE. Trouvées : {}'.format(len(terrain)))
+        raise RuntimeError('Une seule couche REGARD_GST doit se trouver dans DONNEE TERRAIN COMPLETE. Trouvées : {}'.format(len(terrain)))
     if len(manquants) != 1:
         raise RuntimeError('Une seule couche PLAQUES_MANQUANT doit se trouver à la racine du projet. Trouvées : {}'.format(len(manquants)))
     for couche in (terrain[0], manquants[0]):
@@ -86,7 +86,7 @@ def _geojson(terrain, manquants):
         'type': 'FeatureCollection',
         'metadata': {
             'updated_at': datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
-            'source_relevees': 'DONNE TERRAIN COMPLETE / REGARD_GST',
+            'source_relevees': 'DONNEE TERRAIN COMPLETE / REGARD_GST',
             'source_restantes': 'PLAQUES_MANQUANT',
             'crs': 'EPSG:4326',
             'relevees': compte['relevee'],
