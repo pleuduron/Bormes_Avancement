@@ -302,7 +302,7 @@ function initPlaquesMap(){
  if(mapInitialized)return !!plaquesMap;
  mapInitialized=true;
  if(typeof L==='undefined'){set('map-message','Bibliothèque cartographique indisponible. Vérifiez la connexion Internet.');return false;}
- plaquesMap=L.map('plaques-map',{preferCanvas:true,zoomControl:true,scrollWheelZoom:false});
+ plaquesMap=L.map('plaques-map',{preferCanvas:true,zoomControl:true,scrollWheelZoom:true});
  plaquesMap.setView([43.14,6.34],11);
  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors',maxZoom:19}).addTo(plaquesMap);
  plaqueLayers={relevee:L.layerGroup().addTo(plaquesMap),manquante:L.layerGroup().addTo(plaquesMap)};
