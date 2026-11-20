@@ -2,8 +2,10 @@
 """Publication de métriques agrégées sur GitHub Pages depuis les scripts QGIS.
 
 Copier ce fichier à la racine du dépôt local Bormes_Avancement.
-Il ne publie jamais les couches QGIS, fichiers Excel ou CSV Khélios.
+Il publie les indicateurs JSON et, après succès, les coordonnées des plaques autorisées.
+Il ne publie jamais les autres couches QGIS, fichiers Excel ou CSV Khélios.
 """
+import importlib.util
 import json
 import os
 import re
@@ -88,7 +90,9 @@ def _consentement(parent=None):
         'Vous êtes sur le point de publier des indicateurs agrégés sur un site PUBLIC.\n\n'
         'Le tableau publie également des indicateurs PAR JOUR : date, linéaire, '
         'plaques et total d’heures, sans identité des techniciens.\n'
-        'Aucun fichier de terrain, géométrie ou CSV Khélios ne sera envoyé.\n\n'
+        'Aucun fichier de terrain ni CSV Khélios ne sera envoyé.\n'
+        'Les coordonnées de plaques peuvent être publiées séparément,\n'
+        'avec votre accord spécifique.\n\n'
         'Confirmez-vous avoir l’autorisation de publier ces indicateurs ?',
         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
     if rep != QMessageBox.Yes:
@@ -97,11 +101,43 @@ def _consentement(parent=None):
     return True
 
 
+def _actualiser_carte_apres_publication(repo, parent=None):
+    """Lance la mise à jour cartographique, sans compromettre le JSON publié.
+
+    Le fichier GeoJSON n'est envoyé qu'après vérification des deux couches,
+    consentement cartographique indépendant et succès de la publication JSON.
+    """
+    from qgis.PyQt.QtWidgets import QMessageBox
+    module_path = Path(repo) / 'qgis_export_carte.py'
+    try:
+        if not module_path.is_file():
+            raise RuntimeError(
+                'Module qgis_export_carte.py introuvable dans le dépôt local. '
+                'Exécutez git pull origin main avant le prochain traitement.'
+            )
+        spec = importlib.util.spec_from_file_location('bormes_carte_auto', str(module_path))
+        if spec is None or spec.loader is None:
+            raise RuntimeError('Chargement du module cartographique impossible.')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module.actualiser_automatiquement(repo)
+    except Exception as erreur:
+        # La publication du rapport a déjà réussi : ne pas annoncer un échec global.
+        QMessageBox.warning(
+            parent,
+            'Indicateurs publiés — carte non actualisée',
+            'Les indicateurs ont bien été publiés sur GitHub, mais la carte '
+            'n’a pas pu être actualisée.\n\n' + str(erreur)
+        )
+        return False
+
+
 def publier_json(repo, fichier, donnees, parent=None):
     """Met à jour un seul JSON, en préservant le second, puis commit et push.
 
     Retour : URL du site si push réussi, None si publication refusée.
     Lève une erreur explicite si Git échoue ; le rapport Excel n'est jamais touché.
+    Une erreur du GeoJSON est signalée séparément, sans annuler le JSON réussi.
     """
     if fichier not in FICHIERS_AUTORISES:
         raise ValueError('Fichier de publication non autorisé : ' + fichier)
@@ -139,4 +175,5 @@ def publier_json(repo, fichier, donnees, parent=None):
              '--', fichier)
     # Si la donnée est identique, un push peut quand même terminer un commit précédent.
     _git(exe, repo, 'push', 'origin', 'main', timeout=180)
+    _actualiser_carte_apres_publication(repo, parent)
     return SITE_URL
