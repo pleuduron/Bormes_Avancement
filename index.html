@@ -116,6 +116,58 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 @media(max-width:700px){#pane-production .production-day-card .details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:420px){#pane-production .production-day-card .details-grid{grid-template-columns:1fr}}
 
+
+/* V9.1 — retouches visuelles uniquement : avancement, filtre et historique */
+/* Le vert conserve la priorité pour le réalisé ; le restant est couleur terre. */
+.avancement-rings .ring{background:conic-gradient(var(--green) 0 var(--value),#f3dfca var(--value) 100%)}
+.avancement-rings .line-item.is-done strong{color:#267b51}
+.avancement-rings .line-item.is-remaining span,
+.avancement-rings .line-item.is-remaining strong{color:#b86a36}
+.avancement-rings .line-item.is-remaining strong{font-weight:800}
+/* Filtre plus compact : mêmes données et mêmes raccourcis. */
+#pane-production .filter-card{padding:17px 20px 18px;background:#f8fbf9;border-color:#d7e6dc;box-shadow:0 4px 18px rgba(21,65,38,.035)}
+#pane-production .filter-title{align-items:center;gap:12px;margin-bottom:13px}
+#pane-production .filter-title h3{font-size:15px;letter-spacing:0}
+#pane-production .filter-title .selected-period{display:inline-flex;align-items:center;padding:6px 10px;border:1px solid #d9e8de;border-radius:8px;background:#edf5ef;color:#4b705a;line-height:1.4}
+#pane-production .filter-layout{display:flex;justify-content:space-between;align-items:flex-end;gap:12px 18px;flex-wrap:wrap}
+#pane-production .filter-form{display:flex;flex:1 1 370px;align-items:flex-end;gap:10px;flex-wrap:wrap}
+#pane-production .filter-form .field{flex:1 1 200px;max-width:300px}
+#pane-production .filter-form .field label{font-size:12px;margin-bottom:5px;color:#456b53}
+#pane-production .filter-form input{min-height:40px;border-color:#cbded1;background:#fff;font-weight:650}
+#pane-production .filter-form input:focus-visible{outline-color:#81ba93}
+#pane-production #reset-range{min-height:40px;border:1px solid #c8dccf;border-radius:9px;background:#fff;color:#2b6143;white-space:nowrap;padding:9px 13px}
+#pane-production #reset-range:hover{background:#ecf5ef}
+#pane-production .chip-row{display:flex;align-items:center;gap:6px;flex:0 1 auto;margin:0}
+#pane-production .chip{padding:10px 12px;border-radius:9px;background:#fff;color:#526f5d;border-color:#d3e3d8}
+#pane-production .chip.active{background:#245e42;color:#fff;border-color:#245e42}
+#pane-production .chip:not(.active):hover{background:#edf6ef;border-color:#b7d4c0}
+#pane-production .filter-help{margin:10px 0 0;font-size:11px;line-height:1.4;color:#758c7b}
+@media(max-width:760px){
+ #pane-production .filter-layout{align-items:stretch}
+ #pane-production .filter-form{flex-basis:100%}
+ #pane-production .chip-row{flex-wrap:wrap}
+ #pane-production .filter-title{align-items:flex-start;flex-wrap:wrap}
+}
+@media(max-width:420px){
+ #pane-production .filter-form{flex-direction:column;align-items:stretch}
+ #pane-production .filter-form .field{width:100%;max-width:none;flex:auto}
+ #pane-production #reset-range{width:100%}
+}
+/* Couleurs mesurées : REG vert, BRA bleu doux, absence de fichier ambre. */
+#pane-production .production-types-card .type-bar.alt{background:#689dbb}
+#pane-production .production-types-card .type-row:nth-child(2) span,
+#pane-production .production-types-card .type-row:nth-child(2) b{color:#477f9e}
+#pane-production .production-stats .stat:nth-child(2):before{background:#689dbb}
+#pane-production .production-stats .stat:nth-child(3):before{background:#a8b7ac}
+#pane-production .production-stats .stat:nth-child(4):before{background:#c49b69}
+#pane-production .production-history-card tr.missing-row{background:#fffaf1}
+#pane-production .production-history-card tr.missing-row td{color:#806c52}
+#pane-production .production-history-card tr.missing-row:hover{background:#fff4e3}
+#pane-production .production-history-card tr.missing-row.selected{background:#fcebd0}
+#pane-production .production-history-card .history-status{display:inline-block;border-radius:7px;padding:4px 9px;font-size:11px;line-height:1.4;font-weight:750;white-space:nowrap}
+#pane-production .production-history-card .history-status.has-file{background:#e7f4eb;color:#276a45}
+#pane-production .production-history-card .history-status.no-file{background:#fff0d9;color:#9c6225}
+
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
@@ -137,8 +189,8 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
  <section class="pane" id="pane-avancement" role="tabpanel" aria-labelledby="tab-avancement">
   <div class="pane-head"><div><p class="section-kicker">01 / État d’avancement</p><h2>Avancement global</h2></div><span class="date-stamp" id="av-updated">Mise à jour : en attente</span></div>
   <div class="grid2 gap-top avancement-rings">
-   <article class="card"><div class="card-head"><div><h3>Canalisation</h3></div><span class="tag">mètres linéaires</span></div><div class="ring-layout"><div class="ring" id="ring-arcs"><div class="ring-inner"><b id="ring-arcs-pct">—</b></div></div><div class="ring-lines"><div class="line-item"><span>Réalisé</span><strong id="ring-arcs-done">—</strong></div><div class="line-item"><span>Restant</span><strong id="ring-arcs-left">—</strong></div><div class="line-item"><span>Total</span><strong id="ring-arcs-total">—</strong></div></div></div></article>
-   <article class="card"><div class="card-head"><div><h3>Plaques</h3></div><span class="tag">unités</span></div><div class="ring-layout"><div class="ring" id="ring-plaques"><div class="ring-inner"><b id="ring-plaques-pct">—</b></div></div><div class="ring-lines"><div class="line-item"><span>Réalisées</span><strong id="ring-plaques-done">—</strong></div><div class="line-item"><span>Restantes</span><strong id="ring-plaques-left">—</strong></div><div class="line-item"><span>Total</span><strong id="ring-plaques-total">—</strong></div></div></div></article>
+   <article class="card"><div class="card-head"><div><h3>Canalisation</h3></div><span class="tag">mètres linéaires</span></div><div class="ring-layout"><div class="ring" id="ring-arcs"><div class="ring-inner"><b id="ring-arcs-pct">—</b></div></div><div class="ring-lines"><div class="line-item is-done"><span>Réalisé</span><strong id="ring-arcs-done">—</strong></div><div class="line-item is-remaining"><span>Restant</span><strong id="ring-arcs-left">—</strong></div><div class="line-item"><span>Total</span><strong id="ring-arcs-total">—</strong></div></div></div></article>
+   <article class="card"><div class="card-head"><div><h3>Plaques</h3></div><span class="tag">unités</span></div><div class="ring-layout"><div class="ring" id="ring-plaques"><div class="ring-inner"><b id="ring-plaques-pct">—</b></div></div><div class="ring-lines"><div class="line-item is-done"><span>Réalisées</span><strong id="ring-plaques-done">—</strong></div><div class="line-item is-remaining"><span>Restantes</span><strong id="ring-plaques-left">—</strong></div><div class="line-item"><span>Total</span><strong id="ring-plaques-total">—</strong></div></div></div></article>
   </div>
   <section class="card map-card gap-top" aria-labelledby="map-heading">
    <div class="map-head">
@@ -156,10 +208,12 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
  </section>
  <section class="pane" id="pane-production" role="tabpanel" aria-labelledby="tab-production" hidden>
   <div class="pane-head"><div><p class="section-kicker">02 / Analyse des relevés</p><h2>Production terrain</h2></div><span class="date-stamp" id="pr-updated">Mise à jour : en attente</span></div>
-  <div class="card filter-card no-print"><div class="filter-title"><div><h3>Filtrer les journées</h3><p class="card-caption">Un seul jour de référence, avec des raccourcis pour la période affichée</p></div><span class="selected-period" id="range-summary"></span></div>
-   <div class="filter-form"><div class="field"><label for="date-asof">Afficher la production jusqu’au</label><input type="date" id="date-asof" aria-describedby="date-asof-help"></div><button id="reset-range" class="button-primary">Dernière date disponible</button></div>
-   <p class="filter-help" id="date-asof-help">La date choisie détermine la fin des graphiques et des totaux. Choisissez ensuite la durée à afficher.</p>
-   <div class="chip-row" role="group" aria-label="Période avant la date choisie"><button class="chip active" data-range="all" aria-pressed="true">Toutes les dates</button><button class="chip" data-range="30" aria-pressed="false">30 derniers jours</button><button class="chip" data-range="5" aria-pressed="false">5 derniers jours</button></div>
+  <div class="card filter-card no-print"><div class="filter-title"><h3>Filtrer les journées</h3><span class="selected-period" id="range-summary"></span></div>
+   <div class="filter-layout">
+    <div class="filter-form"><div class="field"><label for="date-asof">Afficher jusqu’au</label><input type="date" id="date-asof" aria-describedby="date-asof-help"></div><button id="reset-range" class="button-primary">Dernière date</button></div>
+    <div class="chip-row" role="group" aria-label="Période avant la date choisie"><button class="chip active" data-range="all" aria-pressed="true">Toutes les dates</button><button class="chip" data-range="30" aria-pressed="false">30 derniers jours</button><button class="chip" data-range="5" aria-pressed="false">5 derniers jours</button></div>
+   </div>
+   <p class="filter-help" id="date-asof-help">La date choisie fixe la fin de la période affichée.</p>
   </div>
   <div class="grid4 gap-top production-stats"><article class="card stat strong"><div class="stat-label" id="period-label-ml">Linéaire total</div><div class="stat-number" id="period-ml">—</div><p class="stat-detail" id="period-info-ml">Production documentée</p></article><article class="card stat"><div class="stat-label" id="period-label-plaques">Plaques totales</div><div class="stat-number" id="period-plaques">—</div><p class="stat-detail" id="period-info-plaques">REG et BRA</p></article><article class="card stat"><div class="stat-label" id="period-label-hours">Heures totales</div><div class="stat-number" id="period-hours">—</div><p class="stat-detail" id="period-info-hours">Toutes les heures connues</p></article><article class="card stat"><div class="stat-label" id="period-label-days">Journées documentées</div><div class="stat-number" id="period-days">—</div><p class="stat-detail" id="period-missing">Sur la période sélectionnée</p></article></div>
   <div class="production-overview-row">
@@ -242,7 +296,7 @@ set('period-info-hours','Heures connues · '+periodName);
 set('range-summary',r.length+' date(s) · '+(r.length?D(r[0].date)+' au '+D(r.at(-1).date):'aucune date'));set('period-ml',M(ml));set('period-plaques',NF(plaques));set('period-hours',NF(hours,1)+' h');set('period-days',NF(docs.length));set('period-missing',missing+' sans fichier terrain');set('period-yield-ml',hours>0?M(ml/hours*16):'—');set('period-yield-plaques',hours>0?NF(plaques/hours*16,1)+' plaques':'—');$('period-yield-warning').hidden=hours>0;
 const reg=sum('reg'),bra=sum('bra');for(const [name,val] of [['reg',reg],['bra',bra]]){set('type-'+name+'-n',NF(val));$('type-'+name).style.width=(plaques>0?clamp(val/plaques*100):0)+'%';}const onlyRecent=state.p&&(!Array.isArray(state.p.journees));const horsDate=state.p?.sans_date?.lineaire_m||state.p?.sans_date?.plaques?' Certains relevés sans Date_gps valide ne figurent pas dans les graphiques.':'';set('quality-note',onlyRecent?'Ancien format détecté : seules les six dernières journées sont disponibles. Exécutez le script Rapport V8 pour obtenir toutes les dates.':missing+' journée(s) sans relevés terrain dans la période ; '+missingHours+' journée(s) terrain sans heures. Une production inconnue n’est pas assimilée à zéro.'+horsDate);
 if(!r.some(x=>x.date===state.selected)){state.selected=docs.at(-1)?.date||r.at(-1)?.date||'';}renderTable(r);selectDay(state.selected);drawCharts(docs);}
-function renderTable(rows){const body=$('daily-table');body.replaceChildren();if(!rows.length){let tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=5;td.textContent='Aucune journée dans cette période';tr.appendChild(td);body.appendChild(tr);return;}for(const d of rows.slice().reverse()){let tr=document.createElement('tr');tr.dataset.date=d.date;tr.tabIndex=0;tr.setAttribute('aria-label','Consulter le '+D(d.date));if(!d.terrain_documente)tr.className='missing-row';const values=[D(d.date),N(d.lineaire_m)?NF(d.lineaire_m,1):'—',N(d.plaques)?NF(d.plaques):'—',N(d.heures)?NF(d.heures,1):'—',d.terrain_documente?'Documenté':'Non documenté'];for(const value of values){let td=document.createElement('td');td.textContent=value;tr.appendChild(td);}tr.addEventListener('click',()=>selectDay(d.date));tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectDay(d.date);}});body.appendChild(tr);}}
+function renderTable(rows){const body=$('daily-table');body.replaceChildren();if(!rows.length){let tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=5;td.textContent='Aucune journée dans cette période';tr.appendChild(td);body.appendChild(tr);return;}for(const d of rows.slice().reverse()){let tr=document.createElement('tr');tr.dataset.date=d.date;tr.tabIndex=0;tr.setAttribute('aria-label','Consulter le '+D(d.date));if(!d.terrain_documente)tr.className='missing-row';const values=[D(d.date),N(d.lineaire_m)?NF(d.lineaire_m,1):'—',N(d.plaques)?NF(d.plaques):'—',N(d.heures)?NF(d.heures,1):'—',d.terrain_documente?'Documenté':'Sans fichier'];for(const [index,value] of values.entries()){let td=document.createElement('td');if(index===4){const badge=document.createElement('span');badge.className='history-status '+(d.terrain_documente?'has-file':'no-file');badge.textContent=value;td.appendChild(badge);}else{td.textContent=value;}tr.appendChild(td);}tr.addEventListener('click',()=>selectDay(d.date));tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectDay(d.date);}});body.appendChild(tr);}}
 const SVG='http://www.w3.org/2000/svg';function svgEl(tag,attrs={},text=''){const e=document.createElementNS(SVG,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));if(text)e.textContent=text;return e;}
 function chartHost(id,docs,accum){const host=$(id);host.replaceChildren();if(!docs.length){let d=document.createElement('div');d.className='chart-empty';d.textContent='Aucune production documentée pour cette période';host.appendChild(d);return;}const metric=state.metric,values=docs.map(x=>N(x[metric+'_m'])?x[metric+'_m']:N(x[metric])?x[metric]:0),totals=[];let cumul=0;for(const x of values){cumul+=x;totals.push(cumul);}const plotted=accum?totals:values,max=Math.max(1,...plotted),niceMax=Math.ceil(max/4/(Math.pow(10,Math.floor(Math.log10(max/4||1)))))*Math.pow(10,Math.floor(Math.log10(max/4||1)))*4||4;const width=Math.max(570,docs.length*46+78),height=252,margin={l:64,r:20,t:14,b:47},plotW=width-margin.l-margin.r,plotH=height-margin.t-margin.b,n=docs.length,x=i=>margin.l+(i+.5)/n*plotW,y=v=>margin.t+plotH*(1-v/niceMax);const svg=svgEl('svg',{viewBox:`0 0 ${width} ${height}`,width,height,role:'img','aria-label':accum?'Production cumulée sur la sélection':'Production par journée'});svg.appendChild(svgEl('rect',{x:0,y:0,width,height,fill:'white'}));for(let t=0;t<=4;t++){const val=niceMax*t/4,yy=y(val);svg.appendChild(svgEl('line',{x1:margin.l,y1:yy,x2:width-margin.r,y2:yy,stroke:'#e1ebe4','stroke-width':1}));svg.appendChild(svgEl('text',{x:margin.l-10,y:yy+4,'text-anchor':'end',fill:'#789282','font-size':10},NF(val,0)));}const tickStep=Math.max(1,Math.ceil(n/7));for(let i=0;i<n;i++){if(i%tickStep===0||i===n-1){svg.appendChild(svgEl('text',{x:x(i),y:height-22,'text-anchor':'middle',fill:'#779080','font-size':10},docs[i].date.slice(8,10)+'/'+docs[i].date.slice(5,7)));}}
 if(accum){const points=plotted.map((v,i)=>`${x(i)},${y(v)}`).join(' ');svg.appendChild(svgEl('polyline',{points,stroke:'#238357','stroke-width':2.8,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'}));}const barWidth=Math.min(25,Math.max(7,plotW/n*.57));plotted.forEach((v,i)=>{const doc=docs[i],active=doc.date===state.selected;let item;if(accum){item=svgEl('circle',{cx:x(i),cy:y(v),r:active?5.7:3.5,fill:active?'#143d2d':'#4da677',stroke:'white','stroke-width':1.7});}else{item=svgEl('rect',{x:x(i)-barWidth/2,y:y(v),width:barWidth,height:Math.max(1,margin.t+plotH-y(v)),rx:3,fill:active?'#143d2d':'#50a578'});}item.style.cursor='pointer';item.appendChild(svgEl('title',{},D(doc.date)+' · '+(accum?'Cumul : ':'Journée : ')+NF(v,metric==='lineaire'?1:0)+(metric==='lineaire'?' m':' plaques')));item.addEventListener('click',()=>{selectDay(doc.date);drawCharts(docs);});svg.appendChild(item);if(accum){let area=svgEl('rect',{x:x(i)-Math.max(8,plotW/n*.43),y:margin.t,width:Math.max(16,plotW/n*.86),height:plotH,fill:'transparent'});area.style.cursor='pointer';area.appendChild(svgEl('title',{},D(doc.date)+' : '+NF(v,1)));area.addEventListener('click',()=>{selectDay(doc.date);drawCharts(docs);});svg.appendChild(area);}});
