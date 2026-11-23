@@ -190,6 +190,25 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 @media(prefers-reduced-motion:reduce){#pane-production .production-stats .stat{transition:none}}
 @media print{#pane-production .production-stats .stat{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 
+/* V9.3 — contraste discret des cinq indicateurs du détail journalier */
+#pane-production .production-day-card .details-grid{gap:12px}
+#pane-production .production-day-card .details-grid>div{
+  --day-accent:#178257;--day-bg:#e9f5ee;
+  position:relative;overflow:hidden;min-height:91px;
+  background:var(--day-bg);border:1px solid color-mix(in srgb,var(--day-accent) 23%,white);
+  border-left:4px solid var(--day-accent);border-radius:11px;
+  padding:14px 15px;box-shadow:0 3px 10px rgba(20,65,40,.045)
+}
+#pane-production .production-day-card .details-grid>div:nth-child(2){--day-accent:#317c99;--day-bg:#edf5f8}
+#pane-production .production-day-card .details-grid>div:nth-child(3){--day-accent:#5a8777;--day-bg:#edf5f1}
+#pane-production .production-day-card .details-grid>div:nth-child(4){--day-accent:#258d60;--day-bg:#eaf6ed}
+#pane-production .production-day-card .details-grid>div:nth-child(5){--day-accent:#b47b36;--day-bg:#fbf4e9}
+#pane-production .production-day-card .details-grid>div span{font-size:12px;color:#547064;font-weight:700}
+#pane-production .production-day-card .details-grid>div b{font-size:clamp(20px,2vw,25px);color:#163f30;letter-spacing:-.035em;line-height:1.2;margin-top:10px;font-variant-numeric:tabular-nums}
+#pane-production .production-day-card .details-grid>div:nth-child(2) b{color:#235c75}
+#pane-production .production-day-card .details-grid>div:nth-child(5) b{color:#825a28}
+@media(max-width:660px){#pane-production .production-day-card .details-grid>div{min-height:82px;padding:12px}}
+
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
