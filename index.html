@@ -168,6 +168,28 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 #pane-production .production-history-card .history-status.has-file{background:#e7f4eb;color:#276a45}
 #pane-production .production-history-card .history-status.no-file{background:#fff0d9;color:#9c6225}
 
+/* V9.2 — KPIs terrain : dominante verte, sans changement des calculs */
+#pane-production .production-stats{gap:14px}
+#pane-production .production-stats .stat{
+  --kpi-accent:#0d9b67;position:relative;isolation:isolate;overflow:hidden;
+  min-height:188px;padding:21px 23px 53px;border:1px solid #c8e4d4;
+  background:linear-gradient(135deg,#08764e 0%,#075238 58%,#06422e 100%);
+  box-shadow:0 10px 22px rgba(14,72,46,.13);border-radius:17px;color:white;
+}
+#pane-production .production-stats .stat:nth-child(2){background:linear-gradient(135deg,#08714d,#084b36 75%);--kpi-accent:#36b98b}
+#pane-production .production-stats .stat:nth-child(3){background:linear-gradient(135deg,#286e62,#155246 75%);--kpi-accent:#8acfb1}
+#pane-production .production-stats .stat:nth-child(4){background:linear-gradient(135deg,#226b4d,#0b4934 75%);--kpi-accent:#b0df9e}
+#pane-production .production-stats .stat::before{content:"";position:absolute;z-index:0;inset:auto -35px 27px auto;width:72%;height:77px;background:rgba(76,202,133,.19);border-radius:100% 0 0 0;transform:rotate(-12deg);pointer-events:none}
+#pane-production .production-stats .stat::after{content:"";position:absolute;z-index:0;right:-18%;bottom:35px;width:85%;height:68px;background:rgba(123,230,158,.12);border-radius:100% 0 0 0;transform:rotate(-8deg);pointer-events:none}
+#pane-production .production-stats .stat .stat-label{position:relative;z-index:1;color:#e5f8ec;font-size:13px;font-weight:750;letter-spacing:.005em}
+#pane-production .production-stats .stat .stat-number{position:relative;z-index:1;margin-top:15px;color:white;font-size:clamp(29px,3vw,42px);font-weight:790;letter-spacing:-.045em;line-height:1.16;overflow-wrap:anywhere}
+#pane-production .production-stats .stat .stat-detail{position:absolute;z-index:2;bottom:0;left:0;right:0;margin:0;min-height:43px;padding:12px 22px 11px;background:#f9fcfa;color:#3b6650;font-size:11px;font-weight:600;line-height:1.4;border-top:1px solid #d5eadb}
+#pane-production .production-stats .stat .stat-detail::before{content:"";display:inline-block;vertical-align:middle;width:17px;height:4px;margin-right:8px;border-radius:9px;background:var(--kpi-accent)}
+#pane-production .production-stats .stat:nth-child(4) .stat-detail{color:#6d633c}
+@media(max-width:660px){#pane-production .production-stats .stat{min-height:168px;padding:18px 17px 50px}#pane-production .production-stats .stat .stat-number{font-size:clamp(27px,6vw,36px)}#pane-production .production-stats .stat .stat-detail{padding:10px 16px;min-height:42px}}
+@media(prefers-reduced-motion:reduce){#pane-production .production-stats .stat{transition:none}}
+@media print{#pane-production .production-stats .stat{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
