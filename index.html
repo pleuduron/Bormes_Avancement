@@ -209,6 +209,41 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 #pane-production .production-day-card .details-grid>div:nth-child(5) b{color:#315d40}
 @media(max-width:660px){#pane-production .production-day-card .details-grid>div{min-height:82px;padding:12px}}
 
+/* Compact production layout; original version: 9fccdfe1d0605569b79a29843f5104f19a6a6abe */
+@media(min-width:1051px){
+#pane-production .pane-head{margin-bottom:12px}
+#pane-production .filter-card{margin-top:8px;margin-bottom:10px;padding:12px 18px}
+#pane-production .filter-title{margin-bottom:8px}
+#pane-production .filter-help{margin-top:5px}
+#pane-production .production-stats{gap:12px}
+#pane-production .production-stats .stat{min-height:143px;padding:15px 17px 44px}
+#pane-production .production-stats .stat .stat-number{margin-top:9px;font-size:clamp(27px,2.6vw,37px)}
+#pane-production .production-stats .stat .stat-detail{min-height:37px;padding:9px 16px;font-size:10px}
+#pane-production .production-overview-row{margin-top:11px;gap:12px}
+#pane-production .production-overview-row>.card{padding:15px 18px}
+#pane-production .production-types-card .card-head{margin-bottom:7px}
+#pane-production .production-types-card .type-list{margin-top:5px}
+#pane-production .production-types-card .type-row{margin:9px 0}
+#pane-production .production-analysis-row{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(330px,1fr);gap:12px;align-items:stretch;margin-top:12px}
+#pane-production .production-analysis-row>.card{min-width:0;margin-top:0;padding:17px}
+#pane-production .production-chart-card .card-head{margin-bottom:9px}
+#pane-production .production-chart-card .chart-grid{margin-top:5px}
+#pane-production .production-chart-card .chart-scroll{min-height:238px}
+#pane-production .production-chart-card .chart-scroll svg{height:230px}
+#pane-production .production-day-card .details-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#pane-production .production-day-card .details-grid>div{min-height:75px;padding:10px 12px}
+#pane-production .production-day-card .details-grid>div:first-child{grid-column:span 2}
+#pane-production .production-day-card .details-grid div b{font-size:21px;margin-top:5px}
+#pane-production .production-day-card .details-box h4{margin-bottom:10px}
+#pane-production .production-history-card{margin-top:12px;padding:15px 18px}
+#pane-production .production-history-card .table-wrap{max-height:235px}
+#pane-production .production-history-card tbody td{padding:7px 12px}
+#pane-production .production-history-card thead th{padding:9px 12px}
+#pane-production .production-history-card .hint{margin-top:8px;padding:8px 11px}
+}
+@media(max-width:1050px){#pane-production .production-analysis-row{display:grid;grid-template-columns:1fr;gap:14px;margin-top:15px}#pane-production .production-analysis-row>.card{margin-top:0}}
+@media(min-width:700px) and (max-width:1050px){#pane-production .production-day-card .details-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-width:699px){#pane-production .production-day-card .details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
@@ -272,15 +307,16 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
      <div class="type-list"><div class="type-row"><span>REG</span><div class="type-track"><div id="type-reg" class="type-bar"></div></div><b id="type-reg-n">—</b></div><div class="type-row"><span>BRA</span><div class="type-track"><div id="type-bra" class="type-bar alt"></div></div><b id="type-bra-n">—</b></div></div>
    </article>
   </div>
-  <div class="card gap-top"><div class="card-head"><div><h3>Évolution chronologique</h3></div><div class="chart-controls no-print" role="group" aria-label="Indicateur du graphique"><button class="toggle active" data-metric="lineaire" aria-pressed="true">Linéaire (mL)</button><button class="toggle" data-metric="plaques" aria-pressed="false">Plaques</button></div></div>
+  <div class="production-analysis-row"><div class="card production-chart-card"><div class="card-head"><div><h3>Évolution chronologique</h3></div><div class="chart-controls no-print" role="group" aria-label="Indicateur du graphique"><button class="toggle active" data-metric="lineaire" aria-pressed="true">Linéaire (mL)</button><button class="toggle" data-metric="plaques" aria-pressed="false">Plaques</button></div></div>
    <div class="chart-grid chart-grid-single">
     <div><div class="card-head"><div><h3>Par journée</h3></div><span class="tag" id="daily-unit">mL</span></div><div class="chart-scroll" id="chart-daily" aria-label="Graphique de la production quotidienne"></div></div>
    </div>
   </div>
-  <article class="card production-day-card gap-top">
+  <article class="card production-day-card">
    <div class="card-head"><div><h3>Détail de la journée</h3><p class="card-caption">Sélectionnez une barre du graphique ou une ligne du tableau</p></div></div>
      <div class="details-box" aria-live="polite"><h4 id="day-title">Sélectionnez une journée</h4><div class="details-grid"><div><span>Linéaire</span><b id="day-ml">—</b></div><div><span>Plaques</span><b id="day-plaques">—</b></div><div><span>Heures</span><b id="day-heures">—</b></div><div><span>REG</span><b id="day-reg">—</b></div><div><span>BRA</span><b id="day-bra">—</b></div></div><div style="margin-top:12px"><button id="limit-to-day" class="quiet-btn no-print" disabled>Afficher la chronologie jusqu’à ce jour</button></div></div>
   </article>
+  </div>
   <article class="card production-history-card gap-top">
     <div class="history-content"><div class="table-toolbar"><div><h3>Journées terrain</h3><p class="card-caption">Cliquez sur une ligne pour examiner ses données</p></div><button id="csv-export" class="table-link no-print">Exporter CSV</button></div>
       <div class="table-wrap"><table><thead><tr><th>Date</th><th>Linéaire (m)</th><th>Plaques</th><th>Heures</th><th>Statut</th></tr></thead><tbody id="daily-table"><tr><td colspan="5">En attente des données</td></tr></tbody></table></div>
