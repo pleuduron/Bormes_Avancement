@@ -339,7 +339,7 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
   </div>
   <article class="card production-day-card">
    <div class="card-head"><div><h3>Détail de la journée</h3><p class="card-caption">Sélectionnez une barre du graphique ou une ligne du tableau</p></div></div>
-     <div class="details-box" aria-live="polite"><h4 id="day-title">Sélectionnez une journée</h4><div class="details-grid"><div><span>Linéaire</span><b id="day-ml">—</b></div><div><span>Plaques</span><b id="day-plaques">—</b></div><div><span>Heures</span><b id="day-heures">—</b></div><div><span>REG</span><b id="day-reg">—</b></div><div><span>BRA</span><b id="day-bra">—</b></div></div><div style="margin-top:12px"><button id="limit-to-day" class="quiet-btn no-print" disabled>Afficher la chronologie jusqu’à ce jour</button></div></div>
+     <div class="details-box" aria-live="polite"><h4 id="day-title">Sélectionnez une journée</h4><div class="details-grid"><div><span>Linéaire</span><b id="day-ml">—</b></div><div><span>Plaques</span><b id="day-plaques">—</b></div><div><span>Heures</span><b id="day-heures">—</b></div><div><span>REG</span><b id="day-reg">—</b></div><div><span>BRA</span><b id="day-bra">—</b></div></div></div>
   </article>
   </div>
   <article class="card production-history-card gap-top">
@@ -382,7 +382,7 @@ function readP(d){
   chooseRange(state.rangePreset);
 }
 function periodRows(){return state.days.filter(d=>(!state.from||d.date>=state.from)&&(!state.to||d.date<=state.to));}
-function selectDay(date){state.selected=date;const d=periodRows().find(x=>x.date===date);if(d)$('date-asof').value=d.date;$('limit-to-day').disabled=!d;if(!d){set('day-title','Sélectionnez une journée');for(const x of ['day-ml','day-plaques','day-heures','day-reg','day-bra'])set(x,'—');return;}set('day-title','Journée du '+D(d.date)+(d.terrain_documente?'':' · sans fichier terrain'));set('day-ml',M(d.lineaire_m));set('day-plaques',NF(d.plaques));set('day-heures',N(d.heures)?NF(d.heures,1)+' h':'—');set('day-reg',NF(d.reg));set('day-bra',NF(d.bra));document.querySelectorAll('#daily-table tr[data-date]').forEach(row=>{row.classList.toggle('selected',row.dataset.date===date);});}
+function selectDay(date){state.selected=date;const d=periodRows().find(x=>x.date===date);if(d)$('date-asof').value=d.date;if(!d){set('day-title','Sélectionnez une journée');for(const x of ['day-ml','day-plaques','day-heures','day-reg','day-bra'])set(x,'—');return;}set('day-title','Journée du '+D(d.date)+(d.terrain_documente?'':' · sans fichier terrain'));set('day-ml',M(d.lineaire_m));set('day-plaques',NF(d.plaques));set('day-heures',N(d.heures)?NF(d.heures,1)+' h':'—');set('day-reg',NF(d.reg));set('day-bra',NF(d.bra));document.querySelectorAll('#daily-table tr[data-date]').forEach(row=>{row.classList.toggle('selected',row.dataset.date===date);});}
 function renderPeriod(){
  const all=state.days,docsAll=all.filter(d=>d.terrain_documente),sum=field=>docsAll.reduce((v,d)=>v+(N(d[field])?d[field]:0),0);
  const ml=sum('lineaire_m'),plaques=sum('plaques'),hours=all.reduce((v,d)=>v+(N(d.heures)?d.heures:0),0),missing=all.filter(d=>!d.terrain_documente).length;
@@ -468,13 +468,7 @@ $('date-asof').addEventListener('change',()=>{
   state.selected=date;
   renderPeriod();
 });
-$('limit-to-day').addEventListener('click',()=>{
-  if(!state.selected)return;
-  state.to=state.selected;
-  state.customPeriod=true;
-  chooseRange(state.rangePreset);
-  $('date-asof').focus();
-});
+
 $('csv-export').addEventListener('click',()=>{const rows=periodRows(),header=['Date','Lineaire_m','Plaques','REG','BRA','Heures','Terrain_documente'];const lines=[header.join(';'),...rows.map(d=>[d.date,d.lineaire_m,d.plaques,d.reg,d.bra,d.heures,d.terrain_documente?'Oui':'Non'].map(v=>v==null?'':String(v).replace('.',',')).join(';'))];const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='Bormes_journees_'+(state.from||'debut')+'_'+(state.to||'fin')+'.csv';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),500);});
 
 /* Carte plaques : la géométrie provient exclusivement de plaques.geojson. */
