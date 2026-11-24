@@ -328,6 +328,55 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 }
 @media(max-width:370px){#pane-production .mobile-day-values{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:9px}}
 @media print{#pane-production .mobile-day-preview{display:none!important}}
+/* V10 — rendement épuré sur toutes les tailles ; graphique et filtres mobiles */
+#pane-production .production-yield-card{padding:17px 21px;border:1px solid #dce9df;box-shadow:0 3px 14px rgba(23,69,42,.045);background:#fff}
+#pane-production .production-yield-card .yield-summary{padding:0;border:0;background:none;box-shadow:none}
+#pane-production .yield-new-head{margin-bottom:13px;align-items:center}
+#pane-production .yield-new-head h3{font-size:16px;font-weight:750;letter-spacing:-.02em}
+#pane-production .yield-new-date{font-size:11px}
+#pane-production .yield-base{border:0;background:#edf5ef;border-radius:6px;color:#33654a;padding:5px 9px;font-size:11px}
+#pane-production .yield-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:none;border-top:1px solid #e7eee8;border-bottom:1px solid #e7eee8}
+#pane-production .yield-metric{background:none;border:0;border-radius:0;padding:15px 17px 15px 0;gap:6px}
+#pane-production .yield-metric+.yield-metric{border-left:1px solid #e7eee8;padding-left:21px}
+#pane-production .yield-metric-label{color:#6a8172;font-size:12px;font-weight:600}
+#pane-production .yield-metric strong{font-size:clamp(24px,2.5vw,33px);color:#184e35;letter-spacing:-.03em}
+#pane-production .yield-bottom{margin-top:11px;gap:12px}
+#pane-production .yield-types{gap:15px;color:#698071;font-size:11px}
+#pane-production .yield-types strong{font-size:12px}
+#pane-production .yield-explanation{color:#87988b;font-size:11px}
+@media(max-width:700px){
+ #pane-production .production-yield-card{padding:14px 15px}
+ #pane-production .yield-new-head{gap:8px;margin-bottom:10px}
+ #pane-production .yield-new-head h3{font-size:15px}
+ #pane-production .yield-new-date{font-size:10px}
+ #pane-production .yield-base{font-size:10px;padding:5px 7px}
+ #pane-production .yield-metric{padding:12px 9px 12px 0}
+ #pane-production .yield-metric+.yield-metric{padding-left:14px}
+ #pane-production .yield-metric strong{font-size:clamp(22px,6vw,29px)}
+ #pane-production .yield-bottom{align-items:flex-start;flex-direction:column-reverse;gap:6px}
+ #pane-production .production-chart-card{padding:15px 13px}
+ #pane-production .production-chart-card>.card-head{display:flex;flex-direction:column;align-items:stretch;gap:12px;margin-bottom:10px}
+ #pane-production .production-chart-card>.card-head h3{font-size:17px;line-height:1.3;white-space:nowrap}
+ #pane-production .production-chart-card .chart-controls{display:grid;grid-template-columns:1fr 1fr;gap:7px;width:100%}
+ #pane-production .production-chart-card .chart-controls .toggle{width:100%;min-height:37px;padding:8px 9px;font-size:12px}
+ #pane-production .production-chart-card .filter-card{display:block;margin:8px 0 13px;padding:11px;border-radius:12px}
+ #pane-production .production-chart-card .filter-title{margin:0 0 8px}
+ #pane-production .production-chart-card .filter-title h3{font-size:11px;white-space:normal}
+ #pane-production .production-chart-card .filter-layout{display:flex;flex-direction:column;align-items:stretch;gap:7px}
+ #pane-production .production-chart-card .filter-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;width:100%;align-items:stretch}
+ #pane-production .production-chart-card .filter-form .field{width:100%;min-width:0;max-width:none}
+ #pane-production .production-chart-card .filter-form input{width:100%;min-width:0;min-height:37px;height:37px;font-size:12px}
+ #pane-production .production-chart-card #reset-range{min-height:37px;padding:6px 9px;font-size:11px;white-space:nowrap}
+ #pane-production .production-chart-card .chip-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;width:100%}
+ #pane-production .production-chart-card .chip{min-height:33px;padding:7px 4px;font-size:11px;text-align:center}
+ #pane-production .production-chart-card .chart-grid{margin-top:5px}
+ #pane-production .production-chart-card .chart-grid .card-head{margin-bottom:4px}
+ #pane-production .production-chart-card .chart-grid .card-head h3{font-size:13px}
+ #pane-production .production-chart-card .chart-scroll{min-height:0;height:205px}
+ #pane-production .production-chart-card .chart-scroll svg{height:205px}
+ #pane-production .production-chart-card .chart-grid-single .chart-scroll svg{width:max(100%,490px)}
+}
+@media(max-width:370px){#pane-production .production-chart-card>.card-head h3{font-size:15px}#pane-production .production-chart-card .filter-form{grid-template-columns:minmax(0,1fr) auto}#pane-production .production-chart-card #reset-range{font-size:10px;padding:5px}}
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
@@ -372,15 +421,12 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
   <div class="production-overview-row">
    <article class="card production-yield-card">
     <section class="yield-summary" id="period-yield" aria-live="polite">
-     <div class="yield-new-head">
-      <div><h3>Rendement moyen</h3><p class="yield-new-date" id="latest-terrain-date">Dernier relevé terrain : —</p></div>
-      <span class="yield-base" title="Rendement normalisé sur 16 heures de travail cumulées">Base : 16 h</span>
-     </div>
+     <div class="yield-new-head"><div><h3>Rendement moyen</h3><p class="yield-new-date" id="latest-terrain-date">Dernier relevé terrain : —</p></div><span class="yield-base" title="Rendement normalisé sur 16 heures de travail cumulées">Base 16 h</span></div>
      <div class="yield-metrics">
-      <div class="yield-metric"><div class="yield-metric-label">Linéaire moyen</div><strong id="period-yield-ml">—</strong><span class="yield-metric-note">Par période de référence</span></div>
-      <div class="yield-metric"><div class="yield-metric-label">Plaques moyennes</div><strong id="period-yield-plaques">—</strong><span class="yield-metric-note">Par période de référence</span></div>
+      <div class="yield-metric"><span class="yield-metric-label">Linéaire</span><strong id="period-yield-ml">—</strong></div>
+      <div class="yield-metric"><span class="yield-metric-label">Plaques</span><strong id="period-yield-plaques">—</strong></div>
      </div>
-     <div class="yield-bottom"><div class="yield-types" aria-label="Répartition globale des plaques"><span>REG <strong id="type-reg-n">—</strong></span><span>BRA <strong id="type-bra-n">—</strong></span></div><p class="yield-explanation">Moyenne calculée sur 16 heures de travail cumulées, à partir des heures Khélios.</p></div>
+     <div class="yield-bottom"><p class="yield-explanation">Moyenne calculée à partir des heures Khélios.</p><div class="yield-types" aria-label="Répartition globale des plaques"><span>REG <strong id="type-reg-n">—</strong></span><span>BRA <strong id="type-bra-n">—</strong></span></div></div>
      <p class="yield-warning" id="period-yield-warning" hidden>Rendement indisponible : aucune heure Khélios renseignée.</p>
     </section>
    </article>
