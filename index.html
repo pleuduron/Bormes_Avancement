@@ -387,6 +387,12 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 @media(max-width:700px){#pane-production .yield-metrics{gap:8px}#pane-production .yield-metric,#pane-production .yield-metric+.yield-metric{padding:12px;gap:6px}#pane-production .yield-metric strong{font-size:clamp(20px,5.5vw,26px)}}
 /* Rendement moyen : les deux vignettes reprennent le vert Plaques */
 #pane-production .yield-metric,#pane-production .yield-metric+.yield-metric{background:#edf6ef;border-color:#dcebe0}
+/* KPI Production terrain : même vert et même blanc pour les quatre cartes */
+#pane-production .production-stats .stat,
+#pane-production .production-stats .stat:nth-child(2),
+#pane-production .production-stats .stat:nth-child(3),
+#pane-production .production-stats .stat:nth-child(4){background:linear-gradient(135deg,#176b49,#0c4e36 78%);--kpi-accent:#78c99a}
+#pane-production .production-stats .stat:nth-child(4) .stat-detail{color:#3b6650}
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
