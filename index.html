@@ -385,6 +385,8 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 #pane-production .yield-metric strong{font-size:clamp(23px,2.1vw,29px);line-height:1.2;color:#163f30;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
 #pane-production .yield-metric+.yield-metric strong{color:#205d40}
 @media(max-width:700px){#pane-production .yield-metrics{gap:8px}#pane-production .yield-metric,#pane-production .yield-metric+.yield-metric{padding:12px;gap:6px}#pane-production .yield-metric strong{font-size:clamp(20px,5.5vw,26px)}}
+/* Rendement moyen : les deux vignettes reprennent le vert Plaques */
+#pane-production .yield-metric,#pane-production .yield-metric+.yield-metric{background:#edf6ef;border-color:#dcebe0}
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
