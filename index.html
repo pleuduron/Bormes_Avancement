@@ -421,6 +421,10 @@ main{background:linear-gradient(180deg,#e9f1eb 0,#f1f5f1 320px,#edf3ee 100%)}
  #pane-production .production-chart-card #reset-range{box-sizing:border-box;display:block;width:100%;min-width:0;max-width:100%;height:38px;min-height:38px;margin:0;padding:6px 5px;font-size:11px;text-align:center;white-space:nowrap}
  #pane-production .production-chart-card .filter-layout,#pane-production .production-chart-card .filter-card{min-width:0}
 }
+/* Filtre unique 5 jours : largeur naturelle sur mobile et desktop */
+#pane-production .production-chart-card .chip-row{display:flex;align-items:center;width:auto}
+#pane-production .production-chart-card .chip-row .chip{width:auto;min-width:125px;padding-inline:13px}
+@media(max-width:700px){#pane-production .production-chart-card .chip-row{display:flex;width:100%}#pane-production .production-chart-card .chip-row .chip{width:100%;min-width:0}}
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
@@ -478,7 +482,7 @@ main{background:linear-gradient(180deg,#e9f1eb 0,#f1f5f1 320px,#edf3ee 100%)}
   <div class="card filter-card no-print"><div class="filter-title"><h3>Choisissez une date pour consulter la journée</h3><span class="selected-period" id="range-summary" hidden></span></div>
    <div class="filter-layout">
     <div class="filter-form"><div class="field"><input type="date" id="date-asof" aria-label="Choisir une date de journée"></div><button id="reset-range" class="button-primary">Dernière date</button></div>
-    <div class="chip-row" role="group" aria-label="Période avant la date choisie"><button class="chip" data-range="30" aria-pressed="false">30 derniers jours</button><button class="chip" data-range="5" aria-pressed="false">5 derniers jours</button></div>
+    <div class="chip-row" role="group" aria-label="Période avant la date choisie"><button class="chip" data-range="5" aria-pressed="false">5 derniers jours</button></div>
    </div>
   </div>
    <aside class="mobile-day-preview" id="mobile-day-preview" hidden aria-live="polite" aria-label="Résumé de la journée sélectionnée">
