@@ -393,6 +393,19 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 #pane-production .production-stats .stat:nth-child(3),
 #pane-production .production-stats .stat:nth-child(4){background:linear-gradient(135deg,#176b49,#0c4e36 78%);--kpi-accent:#78c99a}
 #pane-production .production-stats .stat:nth-child(4) .stat-detail{color:#3b6650}
+/* V10.3 — contraste doux : surfaces légèrement teintées et séparation visuelle */
+:root{--pale2:#edf3ee;--border:#d4e2d8;--shadow:0 7px 24px rgba(22,65,41,.065)}
+body{background:#edf3ee}
+main{background:linear-gradient(180deg,#e9f1eb 0,#f1f5f1 320px,#edf3ee 100%)}
+.card{border-color:#d5e3d9;box-shadow:0 5px 20px rgba(19,64,40,.06)}
+.pane-head{padding-bottom:12px;border-bottom:1px solid #d2e0d6}
+.section-kicker{color:#236f4c}
+.date-stamp{background:#e5efe8;border-color:#cfdfd3}
+#pane-production .production-yield-card{border-color:#cfdfd3;box-shadow:0 5px 20px rgba(19,64,40,.055)}
+#pane-production .production-chart-card,#pane-production .production-day-card,#pane-production .production-history-card{border-color:#d0dfd4}
+#pane-production .production-chart-card .filter-card{background:#edf5ef;border-color:#d4e5d9}
+#pane-production .yield-metric,#pane-production .yield-metric+.yield-metric{background:#e6f2e9;border-color:#cfe3d5}
+@media(max-width:700px){main{background:linear-gradient(180deg,#e9f1eb,#edf3ee 260px)}}
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
@@ -605,7 +618,9 @@ function initPlaquesMap(){
  if(mapInitialized)return !!plaquesMap;
  mapInitialized=true;
  if(typeof L==='undefined'){set('map-message','Bibliothèque cartographique indisponible. Vérifiez la connexion Internet.');return false;}
- plaquesMap=L.map('plaques-map',{preferCanvas:true,zoomControl:true,scrollWheelZoom:true});
+ // Emprise de navigation autour de Bormes-les-Mimosas (rectangle, pas frontière cadastrale).
+ const communeBounds=L.latLngBounds([[43.065,6.235],[43.225,6.485]]);
+ plaquesMap=L.map('plaques-map',{preferCanvas:true,zoomControl:true,scrollWheelZoom:true,maxBounds:communeBounds,maxBoundsViscosity:1,minZoom:10});
  plaquesMap.setView([43.14,6.34],11);
  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors',maxZoom:19}).addTo(plaquesMap);
  plaqueLayers={relevee:L.layerGroup().addTo(plaquesMap),manquante:L.layerGroup().addTo(plaquesMap)};
