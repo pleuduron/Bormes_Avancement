@@ -409,6 +409,10 @@ main{background:linear-gradient(180deg,#e9f1eb 0,#f1f5f1 320px,#edf3ee 100%)}
 /* Rendement moyen : valeurs centrées et même couleur pour les deux indicateurs */
 #pane-production .yield-metric,#pane-production .yield-metric+.yield-metric{align-items:center;text-align:center}
 #pane-production .yield-metric strong,#pane-production .yield-metric+.yield-metric strong{color:#163f30}
+/* Rendement moyen : chiffres dominants, unités discrètes */
+#pane-production .yield-metric strong{display:flex;align-items:baseline;justify-content:center;gap:7px;flex-wrap:wrap}
+#pane-production .yield-metric .yield-value{font-size:1.18em;font-weight:800;line-height:1.15}
+#pane-production .yield-metric .yield-unit{font-size:.53em;font-weight:650;letter-spacing:0;color:#567363}
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
@@ -531,7 +535,8 @@ function renderPeriod(){
  set('period-info-ml','Production documentée · toutes les dates');set('period-info-plaques','REG et BRA · toutes les dates');set('period-info-hours','Heures connues · toutes les dates');
  set('period-ml',PM(ml));set('period-plaques',NF(plaques));set('period-hours',NF(hours)+' h');set('period-days',NF(docsAll.length));set('period-missing',missing+' sans fichier terrain');
  set('latest-terrain-date','Dernier relevé terrain : '+D(docsAll.at(-1)?.date||''));
- set('period-yield-ml',hours>0?NF(ml/hours*16)+' mL':'—');set('period-yield-plaques',hours>0?NF(plaques/hours*16)+' plaques':'—');$('period-yield-warning').hidden=hours>0;
+ $('period-yield-ml').innerHTML=hours>0?'<span class="yield-value">'+NF(ml/hours*16)+'</span><span class="yield-unit">mL</span>':'—';
+ $('period-yield-plaques').innerHTML=hours>0?'<span class="yield-value">'+NF(plaques/hours*16)+'</span><span class="yield-unit">plaques</span>':'—';$('period-yield-warning').hidden=hours>0;
  for(const [name,val] of [['reg',sum('reg')],['bra',sum('bra')]])set('type-'+name+'-n',NF(val));
  const r=periodRows(),docs=r.filter(d=>d.terrain_documente),missingPeriod=r.filter(d=>!d.terrain_documente).length,missingHours=docs.filter(d=>!d.heures_renseignees).length;
  set('range-summary',r.length+' date(s) · '+(r.length?D(r[0].date)+' au '+D(r.at(-1).date):'aucune date'));
