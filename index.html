@@ -387,6 +387,17 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 @media(max-width:700px){#pane-production .yield-metrics{gap:8px}#pane-production .yield-metric,#pane-production .yield-metric+.yield-metric{padding:12px;gap:6px}#pane-production .yield-metric strong{font-size:clamp(20px,5.5vw,26px)}}
 /* Rendement moyen : les deux vignettes reprennent le vert Plaques */
 #pane-production .yield-metric,#pane-production .yield-metric+.yield-metric{background:#edf6ef;border-color:#dcebe0}
+/* V10.2 — KPI élégants, mêmes dimensions et défilement mobile */
+#pane-production .production-stats .stat{background:linear-gradient(145deg,#185e46,#104833 90%);border:1px solid rgba(255,255,255,.14);border-radius:14px;box-shadow:0 5px 16px rgba(17,65,42,.11);overflow:hidden}
+#pane-production .production-stats .stat:nth-child(2){background:linear-gradient(145deg,#0d7754,#075139 90%)}
+#pane-production .production-stats .stat:nth-child(3){background:linear-gradient(145deg,#307b6d,#19584c 90%)}
+#pane-production .production-stats .stat:nth-child(4){background:linear-gradient(145deg,#2b7356,#104b37 90%)}
+#pane-production .production-stats .stat::before,#pane-production .production-stats .stat::after{display:none}
+#pane-production .production-stats .stat .stat-label{color:#d9eee3;font-weight:650;letter-spacing:.01em}
+#pane-production .production-stats .stat .stat-number{color:#fff;letter-spacing:-.035em}
+#pane-production .production-stats .stat .stat-detail{background:rgba(255,255,255,.095);border-top:1px solid rgba(255,255,255,.11);color:#e2f2e8;font-weight:550}
+#pane-production .production-stats .stat:nth-child(4) .stat-detail{color:#e2f2e8}
+#pane-production .production-stats .stat .stat-detail::before{display:none}
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
