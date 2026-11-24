@@ -256,6 +256,20 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 #pane-production .production-chart-card .selected-period{font-size:10px}
 #pane-production #latest-terrain-date{font-weight:700;color:#246647}
 @media(min-width:1051px){#pane-production .production-analysis-row{grid-template-columns:minmax(0,1.8fr) minmax(320px,1fr)}}
+/* V9.6 — filtre journalier minimal, sur une ligne */
+#pane-production .production-chart-card .filter-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;margin:8px 0 12px}
+#pane-production .production-chart-card .filter-title{margin:0;flex:0 1 auto;min-width:0}
+#pane-production .production-chart-card .filter-title h3{font-size:12px;line-height:1.35;white-space:nowrap}
+#pane-production .production-chart-card #range-summary[hidden]{display:none!important}
+#pane-production .production-chart-card .filter-layout{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex:1 1 auto;flex-wrap:nowrap}
+#pane-production .production-chart-card .filter-form{display:flex;align-items:center;gap:7px;flex:0 0 auto;flex-wrap:nowrap}
+#pane-production .production-chart-card .filter-form .field{flex:0 0 auto;max-width:none}
+#pane-production .production-chart-card .filter-form input{width:139px;min-height:33px;padding:5px 7px;font-size:12px}
+#pane-production .production-chart-card #reset-range{min-height:33px;padding:5px 8px;font-size:11px}
+#pane-production .production-chart-card .chip-row{display:flex;flex:0 0 auto;flex-wrap:nowrap;gap:4px}
+#pane-production .production-chart-card .chip{padding:7px 8px;font-size:11px;white-space:nowrap}
+@media(max-width:1350px){#pane-production .production-chart-card .filter-card{align-items:flex-start;flex-wrap:wrap}#pane-production .production-chart-card .filter-layout{justify-content:flex-start;flex-wrap:wrap}}
+@media(max-width:600px){#pane-production .production-chart-card .filter-title h3{white-space:normal}#pane-production .production-chart-card .filter-form{flex-wrap:wrap}#pane-production .production-chart-card .chip-row{flex-wrap:wrap}}
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
@@ -313,12 +327,11 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
    </article>
   </div>
   <div class="production-analysis-row"><div class="card production-chart-card"><div class="card-head"><div><h3>Production par journée</h3></div><div class="chart-controls no-print" role="group" aria-label="Indicateur du graphique"><button class="toggle active" data-metric="lineaire" aria-pressed="true">Linéaire (mL)</button><button class="toggle" data-metric="plaques" aria-pressed="false">Plaques</button></div></div>
-  <div class="card filter-card no-print"><div class="filter-title"><h3>Filtrer les journées</h3><span class="selected-period" id="range-summary"></span></div>
+  <div class="card filter-card no-print"><div class="filter-title"><h3>Choisissez une date pour consulter la journée</h3><span class="selected-period" id="range-summary" hidden></span></div>
    <div class="filter-layout">
-    <div class="filter-form"><div class="field"><label for="date-asof">Afficher jusqu’au</label><input type="date" id="date-asof" aria-describedby="date-asof-help"></div><button id="reset-range" class="button-primary">Dernière date</button></div>
+    <div class="filter-form"><div class="field"><input type="date" id="date-asof" aria-label="Choisir une date de journée"></div><button id="reset-range" class="button-primary">Dernière date</button></div>
     <div class="chip-row" role="group" aria-label="Période avant la date choisie"><button class="chip active" data-range="all" aria-pressed="true">Toutes les dates</button><button class="chip" data-range="30" aria-pressed="false">30 derniers jours</button><button class="chip" data-range="5" aria-pressed="false">5 derniers jours</button></div>
    </div>
-   <p class="filter-help" id="date-asof-help">Choisissez une date pour consulter la journée, tout en gardant les journées précédentes visibles.</p>
   </div>
    <div class="chart-grid chart-grid-single">
     <div><div class="card-head"><div><h3>Par journée</h3></div><span class="tag" id="daily-unit">mL</span></div><div class="chart-scroll" id="chart-daily" aria-label="Graphique de la production quotidienne"></div></div>
