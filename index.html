@@ -291,6 +291,31 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 #pane-production .yield-types strong{color:#1a5137;font-size:13px;font-variant-numeric:tabular-nums}
 #pane-production .yield-explanation{margin:0;color:#7c9083;font-size:11px;line-height:1.5}
 @media(max-width:600px){#pane-production .production-yield-card{padding:14px}#pane-production .yield-metrics{gap:8px}#pane-production .yield-metric{padding:12px}#pane-production .yield-metric strong{font-size:clamp(20px,6vw,30px)}#pane-production .yield-metric-label{font-size:11px}#pane-production .yield-bottom{align-items:flex-start}}
+/* V9.8 — rendement compact, KPI glissants sur mobile */
+#pane-production .production-yield-card{padding:13px 16px}
+#pane-production .yield-new-head{align-items:center;margin-bottom:10px}
+#pane-production .yield-new-head h3{font-size:15px;margin-bottom:3px}
+#pane-production .yield-new-date{font-size:11px}
+#pane-production .yield-base{padding:4px 9px;font-size:11px}
+#pane-production .yield-metrics{gap:9px}
+#pane-production .yield-metric{gap:4px;padding:11px 14px;border-radius:9px}
+#pane-production .yield-metric-label{gap:0;font-size:12px}
+#pane-production .yield-metric strong{font-size:clamp(22px,2.2vw,29px);letter-spacing:-.4px}
+#pane-production .yield-metric-note{font-size:10px}
+#pane-production .yield-bottom{margin-top:9px;gap:9px}
+#pane-production .yield-types{font-size:11px;gap:13px}
+#pane-production .yield-explanation{font-size:10px}
+@media(max-width:700px){
+ #pane-production .production-stats{display:flex;flex-wrap:nowrap;gap:10px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-inline:3px;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding:2px 2px 12px;margin-right:-14px;padding-right:14px;scrollbar-width:thin}
+ #pane-production .production-stats .stat{flex:0 0 min(76vw,255px);width:min(76vw,255px);min-width:0;scroll-snap-align:start;min-height:135px;padding:14px 14px 41px}
+ #pane-production .production-stats .stat .stat-label{font-size:12px}
+ #pane-production .production-stats .stat .stat-number{font-size:clamp(26px,7vw,33px);margin-top:10px}
+ #pane-production .production-stats .stat .stat-detail{min-height:34px;padding:8px 12px;font-size:10px}
+ #pane-production .production-yield-card{padding:12px}
+ #pane-production .yield-metric{padding:10px}
+ #pane-production .yield-metric strong{font-size:clamp(20px,5.5vw,27px)}
+}
+@media print{#pane-production .production-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible}#pane-production .production-stats .stat{width:auto;flex:auto}}
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
@@ -340,8 +365,8 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
       <span class="yield-base" title="Rendement normalisé sur 16 heures de travail cumulées">Base : 16 h</span>
      </div>
      <div class="yield-metrics">
-      <div class="yield-metric"><div class="yield-metric-label"><span class="yield-metric-icon" aria-hidden="true">↗</span>Linéaire moyen</div><strong id="period-yield-ml">—</strong><span class="yield-metric-note">Par période de référence</span></div>
-      <div class="yield-metric"><div class="yield-metric-label"><span class="yield-metric-icon" aria-hidden="true">◉</span>Plaques moyennes</div><strong id="period-yield-plaques">—</strong><span class="yield-metric-note">Par période de référence</span></div>
+      <div class="yield-metric"><div class="yield-metric-label">Linéaire moyen</div><strong id="period-yield-ml">—</strong><span class="yield-metric-note">Par période de référence</span></div>
+      <div class="yield-metric"><div class="yield-metric-label">Plaques moyennes</div><strong id="period-yield-plaques">—</strong><span class="yield-metric-note">Par période de référence</span></div>
      </div>
      <div class="yield-bottom"><div class="yield-types" aria-label="Répartition globale des plaques"><span>REG <strong id="type-reg-n">—</strong></span><span>BRA <strong id="type-bra-n">—</strong></span></div><p class="yield-explanation">Moyenne calculée sur 16 heures de travail cumulées, à partir des heures Khélios.</p></div>
      <p class="yield-warning" id="period-yield-warning" hidden>Rendement indisponible : aucune heure Khélios renseignée.</p>
