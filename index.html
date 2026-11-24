@@ -270,6 +270,27 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
 #pane-production .production-chart-card .chip{padding:7px 8px;font-size:11px;white-space:nowrap}
 @media(max-width:1350px){#pane-production .production-chart-card .filter-card{align-items:flex-start;flex-wrap:wrap}#pane-production .production-chart-card .filter-layout{justify-content:flex-start;flex-wrap:wrap}}
 @media(max-width:600px){#pane-production .production-chart-card .filter-title h3{white-space:normal}#pane-production .production-chart-card .filter-form{flex-wrap:wrap}#pane-production .production-chart-card .chip-row{flex-wrap:wrap}}
+/* V9.7 — rendement principal et répartition REG/BRA intégrée */
+#pane-production .production-overview-row{display:block;margin-top:12px}
+#pane-production .production-yield-card{width:100%;padding:18px 21px}
+#pane-production .production-yield-card .yield-summary{padding:0;background:none;border:0;box-shadow:none}
+#pane-production .yield-new-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:15px}
+#pane-production .yield-new-head h3{margin:0 0 5px;font-size:17px;color:#173f2c}
+#pane-production .yield-new-date{margin:0;color:#678273;font-size:12px;font-weight:500}
+#pane-production #latest-terrain-date{color:#678273;font-weight:500}
+#pane-production .yield-base{flex-shrink:0;display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;background:#e7f3eb;border:1px solid #cfe5d5;color:#206444;font-weight:750;font-size:12px;white-space:nowrap}
+#pane-production .yield-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#pane-production .yield-metric{display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-width:0;padding:17px 19px;border-radius:12px;background:#f2f8f4;border:1px solid #e1eee5}
+#pane-production .yield-metric-label{display:flex;align-items:center;gap:9px;color:#496b58;font-size:13px;font-weight:650}
+#pane-production .yield-metric-icon{display:grid;place-items:center;width:25px;height:25px;border-radius:8px;background:#deefe3;color:#20764b;font-size:16px;font-weight:800}
+#pane-production .yield-metric strong{color:#154a31;font-size:clamp(25px,2.7vw,37px);line-height:1.12;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.7px}
+#pane-production .yield-metric-note{font-size:11px;color:#81968a}
+#pane-production .yield-bottom{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:14px}
+#pane-production .yield-types{display:flex;align-items:center;gap:17px;font-size:12px;color:#597464}
+#pane-production .yield-types span{display:inline-flex;gap:7px;align-items:center}
+#pane-production .yield-types strong{color:#1a5137;font-size:13px;font-variant-numeric:tabular-nums}
+#pane-production .yield-explanation{margin:0;color:#7c9083;font-size:11px;line-height:1.5}
+@media(max-width:600px){#pane-production .production-yield-card{padding:14px}#pane-production .yield-metrics{gap:8px}#pane-production .yield-metric{padding:12px}#pane-production .yield-metric strong{font-size:clamp(20px,6vw,30px)}#pane-production .yield-metric-label{font-size:11px}#pane-production .yield-bottom{align-items:flex-start}}
 /* Navigation permanente : seul le bandeau des onglets reste visible au défilement */
 .nav-sticky{position:sticky;top:0;z-index:1100;background:var(--forest);box-shadow:0 5px 16px rgba(12,39,26,.12)}
 .nav-sticky .tab-nav{border-top:1px solid rgba(255,255,255,.13)}
@@ -313,17 +334,18 @@ main{padding:31px 0 55px}.pane{animation:appear .15s ease-in}@keyframes appear{f
   <div class="grid4 gap-top production-stats"><article class="card stat strong"><div class="stat-label" id="period-label-ml">Linéaire total</div><div class="stat-number" id="period-ml">—</div><p class="stat-detail" id="period-info-ml">Production documentée</p></article><article class="card stat"><div class="stat-label" id="period-label-plaques">Plaques totales</div><div class="stat-number" id="period-plaques">—</div><p class="stat-detail" id="period-info-plaques">REG et BRA</p></article><article class="card stat"><div class="stat-label" id="period-label-hours">Heures totales</div><div class="stat-number" id="period-hours">—</div><p class="stat-detail" id="period-info-hours">Toutes les heures connues</p></article><article class="card stat"><div class="stat-label" id="period-label-days">Journées documentées</div><div class="stat-number" id="period-days">—</div><p class="stat-detail" id="period-missing">Sur la période sélectionnée</p></article></div>
   <div class="production-overview-row">
    <article class="card production-yield-card">
-     <section class="yield-summary" id="period-yield" aria-live="polite">
-      <h3>Rendement moyen</h3>
-      <p class="yield-caption">Production moyenne pour 16 heures de travail · <span id="latest-terrain-date">Dernier relevé terrain : —</span></p>
-      <div class="yield-row"><span>Linéaire relevé / 16 h</span><strong id="period-yield-ml">—</strong></div>
-      <div class="yield-row"><span>Plaques relevées / 16 h</span><strong id="period-yield-plaques">—</strong></div>
-      <p class="yield-warning" id="period-yield-warning" hidden>Rendement indisponible : aucune heure Khélios renseignée sur cette période.</p>
-     </section>
-   </article>
-   <article class="card production-types-card">
-    <div class="card-head"><div><h3>Répartition des plaques</h3><p class="card-caption">Répartition globale des relevés terrain</p></div></div>
-     <div class="type-list"><div class="type-row"><span>REG</span><div class="type-track"><div id="type-reg" class="type-bar"></div></div><b id="type-reg-n">—</b></div><div class="type-row"><span>BRA</span><div class="type-track"><div id="type-bra" class="type-bar alt"></div></div><b id="type-bra-n">—</b></div></div>
+    <section class="yield-summary" id="period-yield" aria-live="polite">
+     <div class="yield-new-head">
+      <div><h3>Rendement moyen</h3><p class="yield-new-date" id="latest-terrain-date">Dernier relevé terrain : —</p></div>
+      <span class="yield-base" title="Rendement normalisé sur 16 heures de travail cumulées">Base : 16 h</span>
+     </div>
+     <div class="yield-metrics">
+      <div class="yield-metric"><div class="yield-metric-label"><span class="yield-metric-icon" aria-hidden="true">↗</span>Linéaire moyen</div><strong id="period-yield-ml">—</strong><span class="yield-metric-note">Par période de référence</span></div>
+      <div class="yield-metric"><div class="yield-metric-label"><span class="yield-metric-icon" aria-hidden="true">◉</span>Plaques moyennes</div><strong id="period-yield-plaques">—</strong><span class="yield-metric-note">Par période de référence</span></div>
+     </div>
+     <div class="yield-bottom"><div class="yield-types" aria-label="Répartition globale des plaques"><span>REG <strong id="type-reg-n">—</strong></span><span>BRA <strong id="type-bra-n">—</strong></span></div><p class="yield-explanation">Moyenne calculée sur 16 heures de travail cumulées, à partir des heures Khélios.</p></div>
+     <p class="yield-warning" id="period-yield-warning" hidden>Rendement indisponible : aucune heure Khélios renseignée.</p>
+    </section>
    </article>
   </div>
   <div class="production-analysis-row"><div class="card production-chart-card"><div class="card-head"><div><h3>Production par journée</h3></div><div class="chart-controls no-print" role="group" aria-label="Indicateur du graphique"><button class="toggle active" data-metric="lineaire" aria-pressed="true">Linéaire (mL)</button><button class="toggle" data-metric="plaques" aria-pressed="false">Plaques</button></div></div>
@@ -392,7 +414,7 @@ function renderPeriod(){
  set('period-ml',PM(ml));set('period-plaques',NF(plaques));set('period-hours',NF(hours)+' h');set('period-days',NF(docsAll.length));set('period-missing',missing+' sans fichier terrain');
  set('latest-terrain-date','Dernier relevé terrain : '+D(docsAll.at(-1)?.date||''));
  set('period-yield-ml',hours>0?PM(ml/hours*16):'—');set('period-yield-plaques',hours>0?NF(plaques/hours*16)+' plaques':'—');$('period-yield-warning').hidden=hours>0;
- for(const [name,val] of [['reg',sum('reg')],['bra',sum('bra')]]){set('type-'+name+'-n',NF(val));$('type-'+name).style.width=(plaques>0?clamp(val/plaques*100):0)+'%';}
+ for(const [name,val] of [['reg',sum('reg')],['bra',sum('bra')]])set('type-'+name+'-n',NF(val));
  const r=periodRows(),docs=r.filter(d=>d.terrain_documente),missingPeriod=r.filter(d=>!d.terrain_documente).length,missingHours=docs.filter(d=>!d.heures_renseignees).length;
  set('range-summary',r.length+' date(s) · '+(r.length?D(r[0].date)+' au '+D(r.at(-1).date):'aucune date'));
  const onlyRecent=state.p&&!Array.isArray(state.p.journees),horsDate=state.p?.sans_date?.lineaire_m||state.p?.sans_date?.plaques?' Certains relevés sans Date_gps valide ne figurent pas dans les graphiques.':'';
