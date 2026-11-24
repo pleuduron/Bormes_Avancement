@@ -382,7 +382,7 @@ function readP(d){
   chooseRange(state.rangePreset);
 }
 function periodRows(){return state.days.filter(d=>(!state.from||d.date>=state.from)&&(!state.to||d.date<=state.to));}
-function selectDay(date){state.selected=date;const d=periodRows().find(x=>x.date===date);$('limit-to-day').disabled=!d;if(!d){set('day-title','Sélectionnez une journée');for(const x of ['day-ml','day-plaques','day-heures','day-reg','day-bra'])set(x,'—');return;}set('day-title','Journée du '+D(d.date)+(d.terrain_documente?'':' · sans fichier terrain'));set('day-ml',M(d.lineaire_m));set('day-plaques',NF(d.plaques));set('day-heures',N(d.heures)?NF(d.heures,1)+' h':'—');set('day-reg',NF(d.reg));set('day-bra',NF(d.bra));document.querySelectorAll('#daily-table tr[data-date]').forEach(row=>{row.classList.toggle('selected',row.dataset.date===date);});}
+function selectDay(date){state.selected=date;const d=periodRows().find(x=>x.date===date);if(d)$('date-asof').value=d.date;$('limit-to-day').disabled=!d;if(!d){set('day-title','Sélectionnez une journée');for(const x of ['day-ml','day-plaques','day-heures','day-reg','day-bra'])set(x,'—');return;}set('day-title','Journée du '+D(d.date)+(d.terrain_documente?'':' · sans fichier terrain'));set('day-ml',M(d.lineaire_m));set('day-plaques',NF(d.plaques));set('day-heures',N(d.heures)?NF(d.heures,1)+' h':'—');set('day-reg',NF(d.reg));set('day-bra',NF(d.bra));document.querySelectorAll('#daily-table tr[data-date]').forEach(row=>{row.classList.toggle('selected',row.dataset.date===date);});}
 function renderPeriod(){
  const all=state.days,docsAll=all.filter(d=>d.terrain_documente),sum=field=>docsAll.reduce((v,d)=>v+(N(d[field])?d[field]:0),0);
  const ml=sum('lineaire_m'),plaques=sum('plaques'),hours=all.reduce((v,d)=>v+(N(d.heures)?d.heures:0),0),missing=all.filter(d=>!d.terrain_documente).length;
@@ -447,9 +447,26 @@ $('reset-range').addEventListener('click',()=>{
 $('date-asof').addEventListener('change',()=>{
   const date=$('date-asof').value;
   if(!date)return;
-  state.to=date;
-  state.customPeriod=true;
-  chooseRange(state.rangePreset,true);
+  // Le sélecteur de date choisit une journée, sans tronquer le graphique.
+  // Les raccourcis 5/30 jours gardent leur rôle de filtre de période.
+  if(!state.days.some(d=>d.date===date)){
+    state.selected='';
+    selectDay('');
+    drawCharts(periodRows().filter(d=>d.terrain_documente));
+    return;
+  }
+  if(!periodRows().some(d=>d.date===date)){
+    state.to=state.days.at(-1)?.date||'';
+    state.from=state.days[0]?.date||'';
+    state.rangePreset='all';
+    document.querySelectorAll('[data-range]').forEach(b=>{
+      const active=b.dataset.range==='all';
+      b.classList.toggle('active',active);
+      b.setAttribute('aria-pressed',String(active));
+    });
+  }
+  state.selected=date;
+  renderPeriod();
 });
 $('limit-to-day').addEventListener('click',()=>{
   if(!state.selected)return;
