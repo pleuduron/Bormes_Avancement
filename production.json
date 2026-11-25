@@ -1,28 +1,33 @@
 {
   "schema_version": 1,
   "source": "production",
-  "updated_at": "20/11/2026 09:13:54",
-  "derniere_date_terrain": "2026-11-13",
-  "derniere_date_heures": "2026-11-13",
+  "updated_at": "25/11/2026 13:24:15",
+  "derniere_date_terrain": "2026-11-16",
+  "derniere_date_heures": "2026-11-16",
   "production": {
     "lineaire_m": 46520.35938480425,
-    "plaques": 1978,
-    "reg": 1529,
-    "bra": 449,
+    "plaques": 2084,
+    "reg": 1579,
+    "bra": 505,
     "autres": 0
   },
   "khelios": {
-    "heures": 538.0,
+    "heures": 554.0,
     "jours_sans_terrain": 17,
     "jours_sans_heures": 0
   },
   "rendement": {
-    "metres_par_16h": 1383.5051118157398,
-    "plaques_par_16h": 58.825278810408925
+    "metres_par_16h": 1343.5482854817112,
+    "plaques_par_16h": 60.187725631768956
   },
-  "jours_terrain": 27,
-  "jours_enregistres": 44,
+  "jours_terrain": 28,
+  "jours_enregistres": 45,
   "dernieres_journees": [
+    {
+      "date": "2026-11-16",
+      "lineaire_m": 0.0,
+      "plaques": 106
+    },
     {
       "date": "2026-11-13",
       "lineaire_m": 1585.4582074544207,
@@ -47,11 +52,6 @@
       "date": "2026-11-02",
       "lineaire_m": 1891.288666828424,
       "plaques": 84
-    },
-    {
-      "date": "2026-10-30",
-      "lineaire_m": 1429.8344292479976,
-      "plaques": 94
     }
   ],
   "journees": [
@@ -536,6 +536,17 @@
       "plaques": 62,
       "reg": 51,
       "bra": 11,
+      "autres": 0,
+      "heures": 16.0
+    },
+    {
+      "date": "2026-11-16",
+      "terrain_documente": true,
+      "heures_renseignees": true,
+      "lineaire_m": 0.0,
+      "plaques": 106,
+      "reg": 50,
+      "bra": 56,
       "autres": 0,
       "heures": 16.0
     }
