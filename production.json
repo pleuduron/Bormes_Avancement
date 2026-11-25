@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "source": "production",
-  "updated_at": "25/11/2026 13:32:39",
+  "updated_at": "25/11/2026 13:47:34",
   "derniere_date_terrain": "2026-11-16",
   "derniere_date_heures": "2026-11-16",
   "production": {
-    "lineaire_m": 46520.35938480425,
-    "plaques": 2084,
-    "reg": 1579,
-    "bra": 505,
+    "lineaire_m": 46765.846534343014,
+    "plaques": 2031,
+    "reg": 1554,
+    "bra": 477,
     "autres": 0
   },
   "khelios": {
@@ -17,16 +17,16 @@
     "jours_sans_heures": 0
   },
   "rendement": {
-    "metres_par_16h": 1343.5482854817112,
-    "plaques_par_16h": 60.187725631768956
+    "metres_par_16h": 1350.638167056838,
+    "plaques_par_16h": 58.65703971119134
   },
   "jours_terrain": 28,
   "jours_enregistres": 45,
   "dernieres_journees": [
     {
       "date": "2026-11-16",
-      "lineaire_m": 0.0,
-      "plaques": 106
+      "lineaire_m": 245.48714953876043,
+      "plaques": 53
     },
     {
       "date": "2026-11-13",
@@ -543,10 +543,10 @@
       "date": "2026-11-16",
       "terrain_documente": true,
       "heures_renseignees": true,
-      "lineaire_m": 0.0,
-      "plaques": 106,
-      "reg": 50,
-      "bra": 56,
+      "lineaire_m": 245.48714953876043,
+      "plaques": 53,
+      "reg": 25,
+      "bra": 28,
       "autres": 0,
       "heures": 16.0
     }
