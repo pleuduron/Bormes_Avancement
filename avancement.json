@@ -1,20 +1,20 @@
 {
   "schema_version": 1,
   "source": "avancement",
-  "updated_at": "26/11/2026 11:55:02",
-  "objectif_m_par_jour": 1315.0,
+  "updated_at": "26/11/2026 15:38:46",
+  "objectif_m_par_jour": 1310.0,
   "refoulement_inclus": false,
   "arcs": {
-    "realises_m": 49616.58145734288,
-    "restants_m": 587.0553041199746,
-    "realises_n": 2863,
-    "restants_n": 43,
-    "pct": 0.9883065183721788,
-    "jours_estimes": 0.4464298890646195
+    "realises_m": 50015.53756240027,
+    "restants_m": 157.6471993875931,
+    "realises_n": 2909,
+    "restants_n": 16,
+    "pct": 0.9968579391534328,
+    "jours_estimes": 0.12034137357831534
   },
   "noeuds": {
-    "realises": 2017,
-    "restants": 73,
-    "pct": 0.9650717703349282
+    "realises": 2051,
+    "restants": 41,
+    "pct": 0.9804015296367112
   }
 }
